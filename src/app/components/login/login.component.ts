@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { loginUser } from 'src/app/store/user/user.actions';
@@ -9,29 +11,31 @@ import { loginUser } from 'src/app/store/user/user.actions';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  email: string = 'milan.lukic@elfak.rs';
-  password: string = '123za';
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
+
   loading: boolean = false;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.subscribe((state) => {
+      this.loading = state.user.loading;
+    });
+  }
 
   handleSubmit() {
-    if (!this.email || !this.password) return;
+    if (!this.email.value || !this.password.value) return;
 
     this.store.dispatch(
       loginUser({
-        email: this.email,
-        password: this.password,
+        email: this.email.value,
+        password: this.password.value,
       })
     );
-    
-    this.resetInputFields();
   }
 
-  resetInputFields() {
-    this.email = '';
-    this.password = '';
+  navigate() {
+    this.router.navigate(['register']);
   }
 }

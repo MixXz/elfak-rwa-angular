@@ -10,3 +10,8 @@ export const loginSuccess = createAction(
   'loginSuccess',
   props<{ data: LoginUser }>()
 );
+
+export const loginFailure = createAction(
+  'loginFailure',
+  props<{ error: string }>()
+);
