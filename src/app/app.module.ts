@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/user/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user/user.effects';
+import {CategoryEffects} from './store/category/category.effects'
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -22,11 +23,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegisterComponent } from './components/register/register.component';
-import {ReactiveFormsModule} from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { categoryReducer } from './store/category/category.reducer';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -34,8 +42,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot<AppState>({ user: userReducer }),
-    EffectsModule.forRoot([UserEffects]),
+    StoreModule.forRoot<AppState>({ user: userReducer, category: categoryReducer}),
+    EffectsModule.forRoot([UserEffects, CategoryEffects]),
 
     MatCardModule,
     MatFormFieldModule,
@@ -44,6 +52,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatToolbarModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

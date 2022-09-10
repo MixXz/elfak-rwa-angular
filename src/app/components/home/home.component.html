@@ -1,1 +1,21 @@
-<p>home works!</p>
+<mat-toolbar color="primary">
+  <span>LOVAČKO ORUŽJE</span>
+  <button mat-button [matMenuTriggerFor]="menu">Kategorije</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Karabin</button>
+    <button mat-menu-item>Lovačka puška</button>
+  </mat-menu>
+  <mat-menu #menu *ngFor="let category of categories">
+    <button mat-menu-item>{{ category.name }}</button>
+  </mat-menu>
+  <button mat-button>Sačuvani oglasi</button>
+  <button mat-button>Moji oglasi</button>
+  <div class="login-div">
+    <span class="logged-text" *ngIf="user"
+      >{{ "Prijavljen kao " + user.firstName + " " + user.lastName }}
+    </span>
+    <button mat-raised-button color="accent" (click)="handleLog()">
+      {{ user ? "Odjavi se" : "Prijavi se" }}
+    </button>
+  </div>
+</mat-toolbar>

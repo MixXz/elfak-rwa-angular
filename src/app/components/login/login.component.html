@@ -4,7 +4,7 @@
       <mat-card-title>Prijavi se</mat-card-title>
       <mat-card-subtitle
         >Nemaš nalog?
-        <span class="nav-text" (click)="navigate()"
+        <span class="nav-text" (click)="navigate('register')"
           >Registruj se</span
         ></mat-card-subtitle
       >
@@ -47,6 +47,8 @@
         >
           Prijavi se
         </button>
+        <span class="nav-text-small" (click)="navigate('home')"
+        >Nastavi bez prijave</span>
       </form>
     </mat-card-content>
     <mat-card-footer>

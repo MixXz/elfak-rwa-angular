@@ -90,7 +90,7 @@
           />
           <mat-error *ngIf="address.invalid"> Unesite adresu. </mat-error>
         </mat-form-field>
-        <button mat-raised-button disabled="{{ loading }}" color="primary">
+        <button mat-raised-button disabled="{{ loading }}" color="primary" (click)="handleSubmit()">
           Registruj se
         </button>
       </form>
