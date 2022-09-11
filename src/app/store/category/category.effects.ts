@@ -8,21 +8,19 @@ import * as CategoryActions from './category.actions';
 @Injectable()
 export class CategoryEffects {
   constructor(
-    private actions$: Actions,
+    private action$: Actions,
     private categoryService: CategoryService
   ) {}
 
   loadCategories$ = createEffect(() =>
-    this.actions$.pipe(
+    this.action$.pipe(
       ofType(CategoryActions.loadCategories),
       mergeMap(() =>
         this.categoryService.getAll().pipe(
           map((categories: Category[]) => {
-            console.log(categories);
             return CategoryActions.loadCategoriesSuccess({ categories });
           }),
           catchError(({ error }) => {
-            console.log(error);
             return of({ type: 'err' });
           })
         )

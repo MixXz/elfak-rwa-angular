@@ -7,13 +7,16 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/user/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user/user.effects';
-import {CategoryEffects} from './store/category/category.effects'
+import { CategoryEffects } from './store/category/category.effects';
 import { AppRoutingModule } from './app-routing.module';
+import { categoryReducer } from './store/category/category.reducer';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { GunAdComponent } from './components/gun-ad/gun-ad.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +29,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
-import { categoryReducer } from './store/category/category.reducer';
+import { MatDividerModule } from '@angular/material/divider';
+import { gunAdReducer } from './store/gun-ad/gun-ad.reducer';
+import { GunAdEffects } from './store/gun-ad/gun-ad.effects';
+import { FeedComponent } from './components/feed/feed.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +40,9 @@ import { categoryReducer } from './store/category/category.reducer';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
+    NavbarComponent,
+    GunAdComponent,
+    FeedComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +51,12 @@ import { categoryReducer } from './store/category/category.reducer';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot<AppState>({ user: userReducer, category: categoryReducer}),
-    EffectsModule.forRoot([UserEffects, CategoryEffects]),
+    StoreModule.forRoot<AppState>({
+      user: userReducer,
+      category: categoryReducer,
+      gunAd: gunAdReducer,
+    }),
+    EffectsModule.forRoot([UserEffects, CategoryEffects, GunAdEffects]),
 
     MatCardModule,
     MatFormFieldModule,
@@ -54,6 +67,7 @@ import { categoryReducer } from './store/category/category.reducer';
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
