@@ -12,11 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { categoryReducer } from './store/category/category.reducer';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GunAdComponent } from './components/gun-ad/gun-ad.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { CreateAdComponent } from './components/create-ad/create-ad.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +33,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { gunAdReducer } from './store/gun-ad/gun-ad.reducer';
 import { GunAdEffects } from './store/gun-ad/gun-ad.effects';
-import { FeedComponent } from './components/feed/feed.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,7 @@ import { FeedComponent } from './components/feed/feed.component';
     NavbarComponent,
     GunAdComponent,
     FeedComponent,
+    CreateAdComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,9 @@ import { FeedComponent } from './components/feed/feed.component';
     MatToolbarModule,
     MatMenuModule,
     MatDividerModule,
+    MatStepperModule,
+    MatSelectModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

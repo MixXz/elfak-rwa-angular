@@ -24,4 +24,8 @@ export class HomeComponent implements OnInit {
       this.user = state.user.user;
     });
   }
+
+  navigate(path: string) {
+    this.router.navigate([path]);
+  }
 }
