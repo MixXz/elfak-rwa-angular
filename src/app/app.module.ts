@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppState } from './app.state';
 import { StoreModule } from '@ngrx/store';
@@ -18,7 +18,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { GunAdComponent } from './components/gun-ad/gun-ad.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreateAdComponent } from './components/create-ad/create-ad.component';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { InterceptorService } from './auth/interceptor';
+
 
 @NgModule({
   declarations: [
@@ -76,8 +78,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatStepperModule,
     MatSelectModule,
     DragDropModule,
+    SlickCarouselModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

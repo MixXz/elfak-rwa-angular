@@ -4,14 +4,16 @@ import { environment } from 'src/environments/environment';
 import { GunAd } from '../models/gun-ad';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GunAdService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAll() {
     return this.httpClient.get<GunAd[]>(`${environment.api}/gun-ad`);
   }
 
+  create(formData: FormData) {
+    return this.httpClient.post<any>(`${environment.api}/gun-ad`, formData);
+  }
 }

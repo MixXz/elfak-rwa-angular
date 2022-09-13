@@ -1,10 +1,12 @@
 import {
   HttpEvent,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { getToken } from './user-context';
 
 export class InterceptorService implements HttpInterceptor {
   constructor() {}
@@ -13,12 +15,12 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token: string | null = localStorage.getItem('token');
+    const token: string | null = getToken();
     if (token) {
       let request = req.clone({
-        setHeaders: {
-          Authorization: 'bearer ' + token,
-        },
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
       });
       return next.handle(request);
     } else {

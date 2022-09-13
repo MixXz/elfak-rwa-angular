@@ -26,4 +26,23 @@ export class GunAdEffects {
       )
     )
   );
+
+  createAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.createAd),
+      mergeMap((action) =>
+        this.gunAdService.create(action.formData).pipe(
+          map((res) => {
+            console.log("proso req");
+            console.log(res);
+            return GunAdActions.createAdSuccess();
+          }),
+          catchError(({ error }) => {
+            console.log(error);
+            return of({ type: 'err' });
+          })
+        )
+      )
+    )
+  );
 }
