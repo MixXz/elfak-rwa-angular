@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import { GunAd } from 'src/app/models/gun-ad';
@@ -7,7 +9,12 @@ import * as GunAdActions from './gun-ad.actions';
 
 @Injectable()
 export class GunAdEffects {
-  constructor(private action$: Actions, private gunAdService: GunAdService) {}
+  constructor(
+    private action$: Actions,
+    private gunAdService: GunAdService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   loadAd$ = createEffect(() =>
     this.action$.pipe(
@@ -33,12 +40,23 @@ export class GunAdEffects {
       mergeMap((action) =>
         this.gunAdService.create(action.formData).pipe(
           map((res) => {
-            console.log("proso req");
-            console.log(res);
+            if (res) {
+              this.router.navigate(['home']);
+              this.snackBar.open(
+                'Vaš oglas je uspešno kreiran!',
+                'Uredu',
+                { duration: 5000 }
+              );
+            }
             return GunAdActions.createAdSuccess();
           }),
           catchError(({ error }) => {
-            console.log(error);
+            console.log(error.message);
+            this.snackBar.open(
+              'Greška na strani servera',
+              'Zatvori',
+              { duration: 5000 }
+            );
             return of({ type: 'err' });
           })
         )

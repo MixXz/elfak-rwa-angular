@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GunAd } from 'src/app/models/gun-ad';
 
 @Component({
@@ -11,9 +12,13 @@ export class GunAdComponent implements OnInit {
 
   imgPath: string = '../../../assets/';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.imgPath += this.ad?.gallery[0];
+  }
+
+  gotoDetails() {
+    this.router.navigate(['gun-ad-details/' + this.ad?.id]);
   }
 }

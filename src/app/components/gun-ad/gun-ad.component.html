@@ -19,7 +19,12 @@
       <p style="margin-top: 30px">
         {{ ad?.description }}
       </p>
-      <button mat-raised-button color="accent" style="align-self: flex-end">
+      <button
+        mat-raised-button
+        color="accent"
+        style="align-self: flex-end"
+        (click)="gotoDetails()"
+      >
         Više informacija
       </button>
     </mat-card-content>

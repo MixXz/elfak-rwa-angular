@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="cont-div">
   <mat-card class="stepper-card-cont mat-elevation-z4">
-    <mat-stepper linear="false" #stepper>
+    <mat-stepper linear="true" #stepper>
       <mat-step [stepControl]="categoryControl">
         <form class="form-div">
           <ng-template matStepLabel>Odaberite kategoriju</ng-template>
@@ -44,7 +44,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill" style="margin-left: 20px">
               <mat-label>Cena</mat-label>
-              <input matInput type="number" min="0" placeholder="0" [defaultValue]="0" />
+              <input matInput type="number" min="0" placeholder="0" [defaultValue]="0" formControlName="priceControl"/>
               <span matSuffix>€&nbsp;</span>
             </mat-form-field>
           </div>
@@ -149,11 +149,12 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>
-          <p (click)="refresh()">Pregled oglasa</p>
+          <label (click)="refresh()">Pregled oglasa</label>
         </ng-template>
         <div class="form-div">
           <h1>Pregled oglasa</h1>
           <div class="layout-div">
+            <div class="row-div">
             <div class="carousel-div">
               <ngx-slick-carousel
                 class="carousel mat-elevation-z4"
@@ -183,37 +184,34 @@
               </ngx-slick-carousel>
             </div>
             <div class="content-div">
-              <mat-card-title> Malo koriscena NOVA</mat-card-title>
+              <mat-card-title> {{this.dataFormGroup.controls['titleControl'].value}}</mat-card-title>
               <h3 style="margin-bottom: 0px">
-                <strong>Marka: </strong>Browning
+                <strong>Marka: </strong>{{this.dataFormGroup.controls['brandControl'].value}}
               </h3>
-              <h3><strong>Kalibar: </strong> 8x57</h3>
+              <h3><strong>Kalibar: </strong> {{this.dataFormGroup.controls['caliberControl'].value}}</h3>
               <mat-divider></mat-divider>
 
               <h3><strong>Deskripcija: </strong></h3>
               <p>
-                Na prodaju lovačka puška ”Crvena Zastava” Hamerles kalibar 12mm,
-                u odličnom stanju, koriscena svega par puta. Isključivo za lica
-                koja poseduju dozvolu.Na prodaju lovačka puška ”Crvena Zastava”
-                Hamerles kalibar 12mm, u odličnom stanju, koriscena svega par
-                puta. Isključivo za lica koja poseduju dozvolu. >
+                {{this.dataFormGroup.controls['descControl'].value}}
               </p>
             </div>
+          </div>
             <mat-card class="personal-data-div mat-elevation-z3">
               <div class="name-avatar-div">
                 <img
                   mat-card-avatar
-                  src="../../../assets/common/defaultUser.png"
+                  [src]="!this.user?.imagePath ? '../../../assets/common/defaultUser.png' : this.user?.imagePath"
                   alt="user"
                   class="user-img"
                 />
-                <mat-card-title> Milan Lukić </mat-card-title>
+                <mat-card-title>{{this.user?.firstName + " " + this.user?.lastName}}</mat-card-title>
               </div>
               <h4 style="margin-bottom: 0px"><strong>Adresa</strong></h4>
-              <h4>Sedmog sepembra br. 7, Zaječar</h4>
+              <h4>{{this.user?.addres}}</h4>
 
               <h4 style="margin-bottom: 0px"><strong>Telefon</strong></h4>
-              <h4>0607148283</h4>
+              <h4>{{this.user?.phone}}</h4>
             </mat-card>
           </div>
           <div style="margin-top: 20px">

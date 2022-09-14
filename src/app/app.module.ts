@@ -38,7 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { InterceptorService } from './auth/interceptor';
-
+import { GunAdDetailsComponent } from './components/gun-ad-details/gun-ad-details.component';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { InterceptorService } from './auth/interceptor';
     GunAdComponent,
     FeedComponent,
     CreateAdComponent,
+    GunAdDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ import { InterceptorService } from './auth/interceptor';
     MatSelectModule,
     DragDropModule,
     SlickCarouselModule,
+    MatRippleModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent],

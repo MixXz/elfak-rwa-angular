@@ -1,3 +1,4 @@
+import { Category } from "./category";
 import { User } from "./user";
 
 export interface GunAd {
@@ -8,8 +9,7 @@ export interface GunAd {
     caliber: string;
     price: number;
     gallery: string[];
-    categoryId: number;
-    creator?: User;
-    
+    category: Category;
+    createdBy?: User;
   }
   

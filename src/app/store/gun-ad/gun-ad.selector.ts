@@ -12,6 +12,10 @@ export const selectAdsIds = createSelector(
   (gunAd) => gunAd.ids
 );
 
+export const selectAdById = (id: number) => createSelector(selectAdsFeature, (ads) => {
+  return ads.entities[id];
+});
+
 export const selectAdsList = createSelector(selectAdsFeature, (gunAd) =>
   gunAd.ids
     .map((id) => gunAd.entities[id])

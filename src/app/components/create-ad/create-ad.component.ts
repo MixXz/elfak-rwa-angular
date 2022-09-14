@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
+import { getUser } from 'src/app/auth/user-context';
 import { Category } from 'src/app/models/category';
+import { User } from 'src/app/models/user';
 import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
 
 @Component({
@@ -12,13 +14,14 @@ import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
   styleUrls: ['./create-ad.component.css'],
 })
 export class CreateAdComponent implements OnInit {
-  categoryControl = new FormControl<String | null>(null, Validators.required);
+  user: User | null = getUser();
 
+  categoryControl = new FormControl<String | null>(null, Validators.required);
   categories: Category[] = [];
 
   dataFormGroup = this._formBuilder.group({
     titleControl: ['', Validators.required],
-    priceControl: [0, Validators.max(10000)],
+    priceControl: [0],
     brandControl: ['', Validators.required],
     caliberControl: ['', Validators.required],
     descControl: ['', Validators.required],
@@ -33,10 +36,6 @@ export class CreateAdComponent implements OnInit {
   slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
   slideConfigSmall = { slidesToShow: 5, slidesToScroll: 5 };
 
-  imagesSelected: boolean = false;
-
-  file: File | null = null;
-
   constructor(
     private _formBuilder: FormBuilder,
     private store: Store<AppState>
@@ -49,15 +48,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   handleCreate() {
-    const gunAdData = {
-      categoryId: this.categoryControl.value,
-      title: this.dataFormGroup.controls['titleControl'].value,
-      price: this.dataFormGroup.controls['priceControl'].value,
-      brand: this.dataFormGroup.controls['brandControl'].value,
-      caliber: this.dataFormGroup.controls['caliberControl'].value,
-      desc: this.dataFormGroup.controls['descControl'].value,
-    };
-
     const formData = new FormData();
 
     if (this.selectedFiles)
@@ -78,18 +68,19 @@ export class CreateAdComponent implements OnInit {
       this.dataFormGroup.controls['brandControl'].value!
     );
     formData.append('categoryId', <string>this.categoryControl.value);
-    formData.append('description', this.dataFormGroup.controls['descControl'].value!);
+    formData.append(
+      'description',
+      this.dataFormGroup.controls['descControl'].value!
+    );
     formData.append(
       'caliber',
       this.dataFormGroup.controls['caliberControl'].value!
     );
 
-    this.store.dispatch(createAd({ formData }));
+     this.store.dispatch(createAd({ formData }));
   }
 
   handleSelectedFiles(event: any) {
-    this.file = event.target.files[0];
-
     this.selectedFileNames = [];
     this.selectedFiles = event.target.files;
 
@@ -108,11 +99,6 @@ export class CreateAdComponent implements OnInit {
         this.selectedFileNames.push(this.selectedFiles[i].name);
       }
     }
-
-    // const file: File | null = this.file;
-    // if(file)
-    //   this.store.dispatch(createAd({ file }))
-    //   console.log(file);
   }
 
   drop(event: CdkDragDrop<string[]>) {
