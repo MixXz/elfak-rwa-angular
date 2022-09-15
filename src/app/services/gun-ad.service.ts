@@ -18,6 +18,10 @@ export class GunAdService {
   }
 
   create(formData: FormData) {
-    return this.httpClient.post<any>(`${environment.api}/gun-ad`, formData);
+    return this.httpClient.post<GunAd[]>(`${environment.api}/gun-ad`, formData);
+  }
+
+  delete(id: number) {
+    return this.httpClient.delete<any>(`${environment.api}/gun-ad/${id}`);
   }
 }

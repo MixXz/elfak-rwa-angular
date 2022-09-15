@@ -57,11 +57,11 @@ export class GunAdEffects {
         this.gunAdService.create(action.formData).pipe(
           map((res) => {
             if (res) {
-              this.router.navigate(['home']);
               this.snackBar.open('Vaš oglas je uspešno kreiran!', 'Uredu', {
                 duration: 5000,
               });
             }
+            this.router.navigate(['home'], { replaceUrl: true });
             return GunAdActions.createAdSuccess();
           }),
           catchError(({ error }) => {
@@ -73,6 +73,32 @@ export class GunAdEffects {
           })
         )
       )
+    )
+  );
+
+  deleteAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.deleteAd),
+      mergeMap((action) => {
+        const id: number = action.adId;
+        return this.gunAdService.delete(action.adId).pipe(
+          map((res) => {
+            if (res.success) {
+              this.snackBar.open('Vaš oglas je uspešno obrisan.', 'Zatvori', {
+                duration: 5000,
+              });
+            }
+            this.router.navigate(['home'], { replaceUrl: true });
+            return GunAdActions.deleteAdSuccess({ adId: id });
+          }),
+          catchError(({ error }) => {
+            this.snackBar.open(error.message, 'Zatvori', {
+              duration: 5000,
+            });
+            return of({ type: error.message });
+          })
+        );
+      })
     )
   );
 }

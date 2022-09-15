@@ -18,3 +18,9 @@ export const createAd = createAction(
   props<{ formData: FormData }>()
 );
 export const createAdSuccess = createAction('createAdSuccess');
+
+export const deleteAd = createAction('deleteAd', props<{ adId: number }>());
+export const deleteAdSuccess = createAction(
+  'deleteAdSuccess',
+  props<{ adId: number }>()
+);

@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadCategories());
     this.store.dispatch(loadAds());
-
+    
     this.store.subscribe((state) => {
       this.user = state.user.user;
     });

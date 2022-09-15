@@ -46,16 +46,54 @@
         </ngx-slick-carousel>
       </div>
       <div class="content-div">
-        <mat-card-title>{{ this.ad?.title }}</mat-card-title>
-        <h3 style="margin-bottom: 0px">
-          <strong>Marka: </strong>{{ this.ad?.brand }}
-        </h3>
-        <h3>
-          <strong>Kalibar: </strong>
-          {{ this.ad?.caliber }}
-        </h3>
-        <mat-divider></mat-divider>
+        <div class="content-header-div">
+          <div style="width: 100%; height: 100%">
+            <div style="display: flex; align-items: center;">
+              <mat-card-title>{{ this.ad?.title }}</mat-card-title>
+              <button
+                mat-mini-fab
+                size="small"
+                color="accent"
+                style="margin-left: 10px"
+              >
+                <mat-icon>bookmark</mat-icon>
+              </button>
+            </div>
 
+            <h3 style="margin-bottom: 0px">
+              <strong>Marka: </strong>{{ this.ad?.brand }}
+            </h3>
+            <h3>
+              <strong>Kalibar: </strong>
+              {{ this.ad?.caliber }}
+            </h3>
+          </div>
+          <div class="right-corner-div">
+            <div style="display: flex">
+              <button mat-raised-button color="primary">
+                {{ this.ad?.price + " €" }}
+              </button>
+            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon color="primary">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>edit_note</mat-icon>
+                <span>Izmeni oglas</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon color="accent">report</mat-icon>
+                <span>Prijavi oglas</span>
+              </button>
+              <button mat-menu-item (click)="handleDelete()">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Obriši oglas</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
         <h3><strong>Deskripcija: </strong></h3>
         <p>
           {{ this.ad?.description }}
@@ -75,8 +113,12 @@
           class="user-img"
         />
         <mat-card-title>{{
-            this.ad?.createdBy?.firstName + " " + this.ad?.createdBy?.lastName
+          this.ad?.createdBy?.firstName + " " + this.ad?.createdBy?.lastName
         }}</mat-card-title>
+        <!-- TODO -->
+        <mat-card-subtitle
+          >Član od: <strong> 24.05.2022</strong></mat-card-subtitle
+        >
       </div>
       <h4 style="margin-bottom: 0px"><strong>Adresa</strong></h4>
       <h4>{{ this.ad?.createdBy?.address }}</h4>

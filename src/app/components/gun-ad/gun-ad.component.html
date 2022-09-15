@@ -1,4 +1,4 @@
-<mat-card class="cont-card mat-elevation-z4">
+<mat-card class="cont-card mat-elevation-z4" matRipple>
   <div class="img-div">
     <img
       [src]="
@@ -8,6 +8,7 @@
       "
       alt="nesto"
       class="img"
+      (click)="gotoDetails()"
     />
   </div>
   <mat-card class="add-card">

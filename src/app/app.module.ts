@@ -44,6 +44,7 @@ import {MatRippleModule} from '@angular/material/core';
 import { MyAdsComponent } from './components/my-ads/my-ads.component';
 import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     DragDropModule,
     SlickCarouselModule,
     MatRippleModule,
+    MatChipsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent],
