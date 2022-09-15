@@ -22,6 +22,9 @@ export const gunAdReducer = createReducer(
     loading: true,
   })),
   on(GunAdActions.loadAdsSuccess, (state: GunAdState, { ads }) => {
-    return adapter.addMany(ads, { ...state, loading: false });
+    return adapter.setAll(ads, { ...state, loading: false });
+  }),
+  on(GunAdActions.loadMyAdsSuccess, (state: GunAdState, { ads }) => {
+      return  adapter.setAll(ads,state);
   })
 );

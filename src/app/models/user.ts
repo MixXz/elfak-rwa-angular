@@ -7,7 +7,7 @@ export interface User {
     firstName: string;
     lastName: string;
     phone: string;
-    addres:string;
+    address:string;
     imagePath: string;
 }
 

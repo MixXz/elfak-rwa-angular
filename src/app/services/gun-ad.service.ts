@@ -13,6 +13,10 @@ export class GunAdService {
     return this.httpClient.get<GunAd[]>(`${environment.api}/gun-ad`);
   }
 
+  getByUser() {
+    return this.httpClient.get<GunAd[]>(`${environment.api}/gun-ad/myAds`);
+  }
+
   create(formData: FormData) {
     return this.httpClient.post<any>(`${environment.api}/gun-ad`, formData);
   }

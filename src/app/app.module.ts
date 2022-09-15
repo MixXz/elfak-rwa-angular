@@ -10,6 +10,7 @@ import { UserEffects } from './store/user/user.effects';
 import { CategoryEffects } from './store/category/category.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { categoryReducer } from './store/category/category.reducer';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -40,6 +41,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { InterceptorService } from './auth/interceptor';
 import { GunAdDetailsComponent } from './components/gun-ad-details/gun-ad-details.component';
 import {MatRippleModule} from '@angular/material/core';
+import { MyAdsComponent } from './components/my-ads/my-ads.component';
+import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,9 @@ import {MatRippleModule} from '@angular/material/core';
     FeedComponent,
     CreateAdComponent,
     GunAdDetailsComponent,
+    MyAdsComponent,
+    SavedAdsComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +67,7 @@ import {MatRippleModule} from '@angular/material/core';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    FontAwesomeModule,
     StoreModule.forRoot<AppState>({
       user: userReducer,
       category: categoryReducer,

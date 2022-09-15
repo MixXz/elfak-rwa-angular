@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   user: User | null = null;
   categories: Category[] = [];
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, public router: Router) {}
   ngOnInit(): void {
     this.store.dispatch(loadCategories());
     this.store.subscribe((state) => {

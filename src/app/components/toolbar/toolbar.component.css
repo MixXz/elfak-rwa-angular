@@ -1,0 +1,14 @@
+.toolbar-div {
+  position: fixed;
+
+  left: 2%;
+  top: 100px;
+
+  width: 300px;
+  height: 200px;
+}
+.toolbar-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

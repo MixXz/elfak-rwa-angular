@@ -5,6 +5,8 @@ import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
 import { loadCategories } from 'src/app/store/category/category.actions';
 import { loadAds } from 'src/app/store/gun-ad/gun-ad.actions';
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
+
 
 @Component({
   selector: 'app-home',
