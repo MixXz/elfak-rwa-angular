@@ -45,6 +45,7 @@ import { MyAdsComponent } from './components/my-ads/my-ads.component';
 import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { EditAdComponent } from './components/edit-ad/edit-ad.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MyAdsComponent,
     SavedAdsComponent,
     ToolbarComponent,
+    EditAdComponent,
   ],
   imports: [
     BrowserModule,

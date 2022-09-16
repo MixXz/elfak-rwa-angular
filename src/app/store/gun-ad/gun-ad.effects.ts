@@ -33,6 +33,23 @@ export class GunAdEffects {
     )
   );
 
+  loadSingleAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.loadSingleAd),
+      mergeMap(({adId}) =>
+        this.gunAdService.getSingle(adId).pipe(
+          map((ad: GunAd) => {
+            return GunAdActions.loadSingleAdSuccess({ ad });
+          }),
+          catchError(({ error }) => {
+            console.log(error);
+            return of({ type: 'err' });
+          })
+        )
+      )
+    )
+  );
+
   loadMyAd$ = createEffect(() =>
     this.action$.pipe(
       ofType(GunAdActions.loadMyAds),
@@ -49,6 +66,23 @@ export class GunAdEffects {
       )
     )
   );
+
+  loadSavedAd$ = createEffect(() =>
+  this.action$.pipe(
+    ofType(GunAdActions.loadSavedAds),
+    mergeMap(() =>
+      this.gunAdService.getByUserSaved().pipe(
+        map((ads: GunAd[]) => {
+          return GunAdActions.loadSavedAdsSuccess({ ads });
+        }),
+        catchError(({ error }) => {
+          console.log(error);
+          return of({ type: 'err' });
+        })
+      )
+    )
+  )
+);
 
   createAd$ = createEffect(() =>
     this.action$.pipe(

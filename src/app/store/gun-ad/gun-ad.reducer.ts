@@ -2,6 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { GunAd } from 'src/app/models/gun-ad';
 import * as GunAdActions from './gun-ad.actions';
+import * as UserActions from '../user/user.actions';
 
 export interface GunAdState extends EntityState<GunAd> {
   category: string | null;
@@ -21,13 +22,31 @@ export const gunAdReducer = createReducer(
     ...state,
     loading: true,
   })),
+  on(GunAdActions.loadSingleAdSuccess, (state: GunAdState, { ad }) => {
+    return adapter.setOne(ad, state);
+  }),
   on(GunAdActions.loadAdsSuccess, (state: GunAdState, { ads }) => {
     return adapter.setAll(ads, { ...state, loading: false });
   }),
   on(GunAdActions.loadMyAdsSuccess, (state: GunAdState, { ads }) => {
     return adapter.setAll(ads, state);
   }),
+  on(GunAdActions.loadSavedAdsSuccess, (state: GunAdState, { ads }) => {
+    return adapter.setAll(ads, state);
+  }),
   on(GunAdActions.deleteAdSuccess, (state: GunAdState, { adId }) => {
     return adapter.removeOne(adId, state);
+  }),
+  on(UserActions.toggleSaveSuccess, (state: GunAdState, { adId }) => {
+    return adapter.updateOne(
+      {
+        id: adId,
+        changes: {
+          ...state.entities[adId],
+          isSaved: !state.entities[adId]?.isSaved,
+        },
+      },
+      state
+    );
   })
 );

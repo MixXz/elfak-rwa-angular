@@ -53,7 +53,7 @@ export class UserEffects {
       mergeMap(() => {
         setToken(null);
         setUser(null);
-        return of(({type: 'logged out'}))
+        return of({ type: 'logged out' });
       })
     )
   );
@@ -79,6 +79,25 @@ export class UserEffects {
               { duration: 5000 }
             );
             return of(UserActions.registerFailure());
+          })
+        )
+      )
+    )
+  );
+
+  toggleSaved$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(UserActions.toggleSaveAd),
+      mergeMap(({ adId }) =>
+        this.userService.toggleSave(adId).pipe(
+          map(() => {
+            return UserActions.toggleSaveSuccess({ adId: adId });
+          }),
+          catchError(() => {
+            this.snackBar.open('Greška na strani servera', 'Zatvori', {
+              duration: 5000,
+            });
+            return of({ type: 'error' });
           })
         )
       )

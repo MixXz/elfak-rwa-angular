@@ -11,11 +11,13 @@ import { selectAdsList } from 'src/app/store/gun-ad/gun-ad.selector';
   styleUrls: ['./feed.component.css'],
 })
 export class FeedComponent implements OnInit {
-  ads: Observable<GunAd[]> | null = of([]);
+  ads: GunAd[] | null = null;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.ads = this.store.select(selectAdsList);
+    this.store.select(selectAdsList).subscribe((ads) => {
+      this.ads = ads;
+    });
   }
 }

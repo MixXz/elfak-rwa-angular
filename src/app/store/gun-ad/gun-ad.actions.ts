@@ -7,9 +7,24 @@ export const loadAdsSuccess = createAction(
   props<{ ads: GunAd[] }>()
 );
 
+export const loadSingleAd = createAction(
+  'loadSingleAd',
+  props<{ adId: number }>()
+);
+export const loadSingleAdSuccess = createAction(
+  'loadSingleAdSuccess',
+  props<{ ad: GunAd }>()
+);
+
 export const loadMyAds = createAction('loadMyAds');
 export const loadMyAdsSuccess = createAction(
   'loadMyAdsSuccess',
+  props<{ ads: GunAd[] }>()
+);
+
+export const loadSavedAds = createAction('loadSavedAds');
+export const loadSavedAdsSuccess = createAction(
+  'loadSavedAdsSuccess',
   props<{ ads: GunAd[] }>()
 );
 

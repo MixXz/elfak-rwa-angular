@@ -10,12 +10,9 @@ import { GunAd } from 'src/app/models/gun-ad';
 export class GunAdComponent implements OnInit {
   @Input() ad: GunAd | null = null;
 
-  imgPath: string = '../../../assets/';
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.imgPath += this.ad?.gallery[0];
   }
 
   gotoDetails() {

@@ -48,13 +48,15 @@
       <div class="content-div">
         <div class="content-header-div">
           <div style="width: 100%; height: 100%">
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center">
               <mat-card-title>{{ this.ad?.title }}</mat-card-title>
               <button
                 mat-mini-fab
                 size="small"
-                color="accent"
+                [color]="this.ad?.isSaved ? 'primary' : 'accent'"
                 style="margin-left: 10px"
+                (click)="handleSave()"
+                *ngIf="this.ad?.createdBy?.id !== this.user?.id"
               >
                 <mat-icon>bookmark</mat-icon>
               </button>
@@ -71,14 +73,18 @@
           <div class="right-corner-div">
             <div style="display: flex">
               <button mat-raised-button color="primary">
-                {{ this.ad?.price + " €" }}
+                {{ ad?.price == 0 ? 'Po dogovoru' : ad?.price + '€' }}
               </button>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon color="primary">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button
+                mat-menu-item
+                *ngIf="this.ad?.createdBy?.id === this.user?.id"
+                (click)="handleEdit()"
+              >
                 <mat-icon>edit_note</mat-icon>
                 <span>Izmeni oglas</span>
               </button>
@@ -86,7 +92,11 @@
                 <mat-icon color="accent">report</mat-icon>
                 <span>Prijavi oglas</span>
               </button>
-              <button mat-menu-item (click)="handleDelete()">
+              <button
+                mat-menu-item
+                *ngIf="this.ad?.createdBy?.id === this.user?.id"
+                (click)="handleDelete()"
+              >
                 <mat-icon color="warn">delete</mat-icon>
                 <span>Obriši oglas</span>
               </button>
@@ -122,7 +132,6 @@
       </div>
       <h4 style="margin-bottom: 0px"><strong>Adresa</strong></h4>
       <h4>{{ this.ad?.createdBy?.address }}</h4>
-
       <h4 style="margin-bottom: 0px"><strong>Telefon</strong></h4>
       <h4>{{ this.ad?.createdBy?.phone }}</h4>
     </mat-card>

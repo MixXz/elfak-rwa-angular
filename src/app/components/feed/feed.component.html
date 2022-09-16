@@ -1,3 +1,4 @@
 <div class="feed-div">
-  <app-gun-ad *ngFor="let ad of ads | async" [ad]="ad"> </app-gun-ad>
+  <app-gun-ad *ngFor="let ad of ads" [ad]="ad"> </app-gun-ad>
+  <h3 *ngIf="ads?.length === 0">Ništa za prikaz</h3>
 </div>

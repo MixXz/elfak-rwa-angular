@@ -9,12 +9,18 @@ import { MyAdsComponent } from './components/my-ads/my-ads.component';
 import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './enums/role';
 import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
+import { EditAdComponent } from './components/edit-ad/edit-ad.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'gun-ad-details/:adId', component: GunAdDetailsComponent },
+  {
+    path: 'gun-ad-details/:adId',
+    component: GunAdDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { role: Roles.User },
+  },
   {
     path: 'myAds',
     component: MyAdsComponent,
@@ -24,6 +30,12 @@ const routes: Routes = [
   {
     path: 'create-ad',
     component: CreateAdComponent,
+    canActivate: [AuthGuard],
+    data: { role: Roles.User },
+  },
+  {
+    path: 'edit-ad',
+    component: EditAdComponent,
     canActivate: [AuthGuard],
     data: { role: Roles.User },
   },
