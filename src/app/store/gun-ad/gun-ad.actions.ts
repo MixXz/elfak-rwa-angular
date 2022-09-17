@@ -28,11 +28,29 @@ export const loadSavedAdsSuccess = createAction(
   props<{ ads: GunAd[] }>()
 );
 
+export const loadSearchedAds = createAction(
+  'loadSearchedAds',
+  props<{ input: string; categoryId: string }>()
+);
+export const loadSearchedAdsSuccess = createAction(
+  'loadSearchedAdsSuccess',
+  props<{ ads: GunAd[] }>()
+);
+
 export const createAd = createAction(
   'createAd',
   props<{ formData: FormData }>()
 );
 export const createAdSuccess = createAction('createAdSuccess');
+
+export const updateAd = createAction(
+  'updateAd',
+  props<{ formData: FormData }>()
+);
+export const updateAdSuccess = createAction(
+  'updateAdSuccess',
+  props<{ ad: GunAd }>()
+);
 
 export const deleteAd = createAction('deleteAd', props<{ adId: number }>());
 export const deleteAdSuccess = createAction(

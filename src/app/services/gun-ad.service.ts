@@ -13,6 +13,12 @@ export class GunAdService {
     return this.httpClient.get<GunAd[]>(`${environment.api}/gun-ad`);
   }
 
+  getBySearch(input: string, categoryId: string) {
+    return this.httpClient.get<GunAd[]>(
+      `${environment.api}/gun-ad/search?categoryId=${categoryId}&searchInput=${input}`
+    );
+  }
+
   getSingle(id: number) {
     return this.httpClient.get<GunAd>(`${environment.api}/gun-ad/${id}`);
   }
@@ -27,6 +33,10 @@ export class GunAdService {
 
   create(formData: FormData) {
     return this.httpClient.post<GunAd[]>(`${environment.api}/gun-ad`, formData);
+  }
+
+  update(formData: FormData) {
+    return this.httpClient.put<GunAd>(`${environment.api}/gun-ad`, formData);
   }
 
   delete(id: number) {

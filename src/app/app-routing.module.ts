@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
-    path: 'gun-ad-details/:adId',
+    path: 'gun-ad-details/:id',
     component: GunAdDetailsComponent,
     canActivate: [AuthGuard],
     data: { role: Roles.User },
@@ -34,7 +34,7 @@ const routes: Routes = [
     data: { role: Roles.User },
   },
   {
-    path: 'edit-ad',
+    path: 'edit-ad/:id',
     component: EditAdComponent,
     canActivate: [AuthGuard],
     data: { role: Roles.User },

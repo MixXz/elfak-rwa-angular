@@ -6,7 +6,7 @@
           <ng-template matStepLabel>Odaberite kategoriju</ng-template>
           <h1>Kategorija</h1>
           <h3>Odaberite kategoriju koja odgovara vašem oružju.</h3>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Kategorija</mat-label>
             <mat-select [formControl]="categoryControl" required>
               <mat-option
@@ -32,7 +32,7 @@
           <h1>Sadržaj oglasa</h1>
           <h3>Podaci koji će biti prikazani na oglasu.</h3>
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Naslov oglasa</mat-label>
               <input
                 matInput
@@ -41,14 +41,14 @@
                 required
               />
             </mat-form-field>
-            <mat-form-field appearance="fill" style="margin-left: 20px">
+            <mat-form-field appearance="outline" style="margin-left: 20px">
               <mat-label>Cena</mat-label>
               <input matInput type="number" min="0" placeholder="0" [defaultValue]="0" formControlName="priceControl"/>
               <span matSuffix>€&nbsp;</span>
             </mat-form-field>
           </div>
           <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Marka oružja</mat-label>
               <input
                 matInput
@@ -57,7 +57,7 @@
                 required
               />
             </mat-form-field>
-            <mat-form-field appearance="fill" style="margin-left: 20px">
+            <mat-form-field appearance="outline" style="margin-left: 20px">
               <mat-label>Kalibar oružja</mat-label>
               <input
                 matInput
@@ -67,7 +67,7 @@
               />
             </mat-form-field>
           </div>
-          <mat-form-field appearance="fill" style="width: 425px">
+          <mat-form-field appearance="outline" style="width: 425px">
             <mat-label>Opis oglasa</mat-label>
             <textarea
               matInput
@@ -106,12 +106,12 @@
             cdkDropListOrientation="horizontal"
             (cdkDropListDropped)="drop($event)"
           >
-            <img
-              cdkDrag
-              *ngFor="let preview of previews"
-              [src]="preview"
-              class="img-img"
-            />
+            <div class="drag-div" cdkDrag *ngFor="let preview of previews; index as i">
+              <button  mat-mini-fab value={{preview}} color="accent" class="remove-btn" (click)="removeImg(btnRemove.id)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <img #btnRemove [id]="i" [src]="preview" class="img-img"/>
+            </div>
           </div>
           <button
             mat-stroked-button

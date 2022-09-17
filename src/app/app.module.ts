@@ -46,6 +46,7 @@ import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { EditAdComponent } from './components/edit-ad/edit-ad.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { EditAdComponent } from './components/edit-ad/edit-ad.component';
     SlickCarouselModule,
     MatRippleModule,
     MatChipsModule,
+    MatBadgeModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent],

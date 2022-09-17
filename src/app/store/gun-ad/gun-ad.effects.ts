@@ -36,7 +36,7 @@ export class GunAdEffects {
   loadSingleAd$ = createEffect(() =>
     this.action$.pipe(
       ofType(GunAdActions.loadSingleAd),
-      mergeMap(({adId}) =>
+      mergeMap(({ adId }) =>
         this.gunAdService.getSingle(adId).pipe(
           map((ad: GunAd) => {
             return GunAdActions.loadSingleAdSuccess({ ad });
@@ -68,12 +68,29 @@ export class GunAdEffects {
   );
 
   loadSavedAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.loadSavedAds),
+      mergeMap(() =>
+        this.gunAdService.getByUserSaved().pipe(
+          map((ads: GunAd[]) => {
+            return GunAdActions.loadSavedAdsSuccess({ ads });
+          }),
+          catchError(({ error }) => {
+            console.log(error);
+            return of({ type: 'err' });
+          })
+        )
+      )
+    )
+  );
+
+  loadSearchAd$ = createEffect(() =>
   this.action$.pipe(
-    ofType(GunAdActions.loadSavedAds),
-    mergeMap(() =>
-      this.gunAdService.getByUserSaved().pipe(
+    ofType(GunAdActions.loadSearchedAds),
+    mergeMap(({input, categoryId}) =>
+      this.gunAdService.getBySearch(input, categoryId).pipe(
         map((ads: GunAd[]) => {
-          return GunAdActions.loadSavedAdsSuccess({ ads });
+          return GunAdActions.loadSearchedAdsSuccess({ ads });
         }),
         catchError(({ error }) => {
           console.log(error);
@@ -97,6 +114,35 @@ export class GunAdEffects {
             }
             this.router.navigate(['home'], { replaceUrl: true });
             return GunAdActions.createAdSuccess();
+          }),
+          catchError(({ error }) => {
+            console.log(error.message);
+            this.snackBar.open('Greška na strani servera', 'Zatvori', {
+              duration: 5000,
+            });
+            return of({ type: 'err' });
+          })
+        )
+      )
+    )
+  );
+
+  updateAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.updateAd),
+      mergeMap((action) =>
+        this.gunAdService.update(action.formData).pipe(
+          map((ad) => {
+            if (ad) {
+              this.router.navigate([`gun-ad-details/${ad.id}`], {
+                replaceUrl: true,
+              });
+              this.snackBar.open('Vaš oglas je uspešno izmenjen!', 'Uredu', {
+                duration: 5000,
+              });
+            }
+
+            return GunAdActions.updateAdSuccess({ ad: ad });
           }),
           catchError(({ error }) => {
             console.log(error.message);

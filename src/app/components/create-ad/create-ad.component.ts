@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
-import { getUser } from 'src/app/auth/user-context';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
 import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
@@ -14,7 +13,7 @@ import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
   styleUrls: ['./create-ad.component.css'],
 })
 export class CreateAdComponent implements OnInit {
-  user: User | null = getUser();
+  user: User | null = null;
 
   categoryControl = new FormControl<String | null>(null, Validators.required);
   categories: Category[] = [];
@@ -30,7 +29,7 @@ export class CreateAdComponent implements OnInit {
   previews: string[] = [];
   sliderPrev: string[] = [];
 
-  selectedFiles?: any;
+  selectedFiles: File[] = [];
   selectedFileNames: string[] = [];
 
   slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
@@ -44,16 +43,19 @@ export class CreateAdComponent implements OnInit {
   ngOnInit(): void {
     this.store.subscribe((state) => {
       this.categories = state.category.categories;
+      this.user = state.user.user;
     });
   }
 
   handleCreate() {
     const formData = new FormData();
 
-    if (this.selectedFiles)
+    this.selectedFileNames.forEach((img) => {
       for (let i = 0; i < this.selectedFiles.length; i++) {
-        formData.append('images', this.selectedFiles[i]);
+        if (img == this.selectedFiles[i].name)
+          formData.append('images', this.selectedFiles[i]);
       }
+    });
 
     formData.append(
       'title',
@@ -77,14 +79,12 @@ export class CreateAdComponent implements OnInit {
       this.dataFormGroup.controls['caliberControl'].value!
     );
 
-     this.store.dispatch(createAd({ formData }));
+    this.store.dispatch(createAd({ formData }));
   }
 
   handleSelectedFiles(event: any) {
-    this.selectedFileNames = [];
     this.selectedFiles = event.target.files;
 
-    this.previews = [];
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
@@ -103,6 +103,11 @@ export class CreateAdComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.previews, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.selectedFileNames,
+      event.previousIndex,
+      event.currentIndex
+    );
     this.sliderPrev = [];
   }
 
@@ -112,5 +117,11 @@ export class CreateAdComponent implements OnInit {
     } else {
       this.sliderPrev[0] = '../../../assets/common/noImage.png';
     }
+  }
+
+  removeImg(value: string) {
+    const index: number = Number(value);
+    this.previews.splice(index, 1);
+    this.selectedFileNames.splice(index, 1);
   }
 }

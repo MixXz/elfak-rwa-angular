@@ -2,8 +2,8 @@
   <div class="img-div">
     <img
       [src]="
-        this.ad?.gallery
-          ? '../../../assets/' + (this.ad?.gallery)![0]
+        this.ad?.gallery![0] !== ''
+          ? imgPath + '/' + this.ad?.gallery![0]
           : '../../../assets/common/noImage.png'
       "
       alt="nesto"
@@ -15,15 +15,17 @@
     <div class="header-div">
       <div>
         <mat-card-title> {{ ad?.title }}</mat-card-title>
-        <mat-card-subtitle style="margin-bottom: 5px;">
+        <mat-card-subtitle style="margin-bottom: 5px">
           Marka: <strong>{{ ad?.brand }}</strong></mat-card-subtitle
         >
-        <mat-card-subtitle  style="margin-bottom: 5px;">
+        <mat-card-subtitle style="margin-bottom: 5px">
           Kalibar: <strong>{{ ad?.caliber }}</strong></mat-card-subtitle
         >
       </div>
       <div>
-        <button mat-raised-button color="primary">{{ ad?.price == 0 ? 'Po dogovoru' : ad?.price + '€' }}</button>
+        <button mat-raised-button color="primary">
+          {{ ad?.price == 0 ? "Po dogovoru" : ad?.price + "€" }}
+        </button>
       </div>
     </div>
     <mat-divider></mat-divider>

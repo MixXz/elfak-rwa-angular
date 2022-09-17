@@ -5,7 +5,7 @@
   align-items: center;
 
   max-width: 60%;
-  margin: 10% auto 0%;
+  margin: 20px auto 0px;
 }
 .user-pic {
   object-fit: cover;

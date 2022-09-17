@@ -34,6 +34,9 @@ export const gunAdReducer = createReducer(
   on(GunAdActions.loadSavedAdsSuccess, (state: GunAdState, { ads }) => {
     return adapter.setAll(ads, state);
   }),
+  on(GunAdActions.loadSearchedAdsSuccess, (state: GunAdState, { ads }) => {
+    return adapter.setAll(ads, state);
+  }),
   on(GunAdActions.deleteAdSuccess, (state: GunAdState, { adId }) => {
     return adapter.removeOne(adId, state);
   }),
@@ -44,6 +47,22 @@ export const gunAdReducer = createReducer(
         changes: {
           ...state.entities[adId],
           isSaved: !state.entities[adId]?.isSaved,
+        },
+      },
+      state
+    );
+  }),
+  on(GunAdActions.updateAdSuccess, (state: GunAdState, {ad}) => {
+    return adapter.updateOne(
+      {
+        id: ad.id,
+        changes: {
+          title: ad.title,
+          description: ad.description,
+          brand: ad.brand,
+          caliber: ad.caliber,
+          price: ad.price,
+          gallery: ad.gallery,
         },
       },
       state
