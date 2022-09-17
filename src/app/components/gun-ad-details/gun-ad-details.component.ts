@@ -5,6 +5,7 @@ import { AppState } from 'src/app/app.state';
 import { GunAd } from 'src/app/models/gun-ad';
 import { User } from 'src/app/models/user';
 import {
+  adminDeleteAd,
   deleteAd,
   loadSingleAd,
 } from 'src/app/store/gun-ad/gun-ad.actions';
@@ -26,8 +27,12 @@ export class GunAdDetailsComponent implements OnInit {
   slideConfigSmall = { slidesToShow: 5, slidesToScroll: 5 };
 
   imgPath: string = environment.api + '/';
-  
-  constructor(private route: ActivatedRoute, private router: Router,  private store: Store<AppState>) {}
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => (this.adId = params['id']));
@@ -42,8 +47,13 @@ export class GunAdDetailsComponent implements OnInit {
   }
 
   handleDelete() {
-    if (this.ad !== undefined && this.ad !== null)
-      this.store.dispatch(deleteAd({ adId: Number(this.ad.id) }));
+    if (this.ad !== undefined && this.ad !== null) {
+      if (this.user?.id === this.ad?.createdBy?.id)
+        this.store.dispatch(deleteAd({ adId: Number(this.ad.id) }));
+      else if (this.user?.role === 'admin') {
+        this.store.dispatch(adminDeleteAd({ adId: Number(this.ad.id) }));
+      }
+    }
   }
   handleSave() {
     if (this.ad !== undefined && this.ad !== null)

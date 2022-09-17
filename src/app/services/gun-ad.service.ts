@@ -39,6 +39,12 @@ export class GunAdService {
     return this.httpClient.put<GunAd>(`${environment.api}/gun-ad`, formData);
   }
 
+  adminDelete(id: number) {
+    return this.httpClient.patch<any>(`${environment.api}/gun-ad/softDelete`, {
+      id: id,
+    });
+  }
+
   delete(id: number) {
     return this.httpClient.delete<any>(`${environment.api}/gun-ad/${id}`);
   }

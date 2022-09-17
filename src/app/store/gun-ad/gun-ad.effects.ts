@@ -85,21 +85,21 @@ export class GunAdEffects {
   );
 
   loadSearchAd$ = createEffect(() =>
-  this.action$.pipe(
-    ofType(GunAdActions.loadSearchedAds),
-    mergeMap(({input, categoryId}) =>
-      this.gunAdService.getBySearch(input, categoryId).pipe(
-        map((ads: GunAd[]) => {
-          return GunAdActions.loadSearchedAdsSuccess({ ads });
-        }),
-        catchError(({ error }) => {
-          console.log(error);
-          return of({ type: 'err' });
-        })
+    this.action$.pipe(
+      ofType(GunAdActions.loadSearchedAds),
+      mergeMap(({ input, categoryId }) =>
+        this.gunAdService.getBySearch(input, categoryId).pipe(
+          map((ads: GunAd[]) => {
+            return GunAdActions.loadSearchedAdsSuccess({ ads });
+          }),
+          catchError(({ error }) => {
+            console.log(error);
+            return of({ type: 'err' });
+          })
+        )
       )
     )
-  )
-);
+  );
 
   createAd$ = createEffect(() =>
     this.action$.pipe(
@@ -170,6 +170,32 @@ export class GunAdEffects {
             }
             this.router.navigate(['home'], { replaceUrl: true });
             return GunAdActions.deleteAdSuccess({ adId: id });
+          }),
+          catchError(({ error }) => {
+            this.snackBar.open(error.message, 'Zatvori', {
+              duration: 5000,
+            });
+            return of({ type: error.message });
+          })
+        );
+      })
+    )
+  );
+
+  adminDeleteAd$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(GunAdActions.adminDeleteAd),
+      mergeMap(({ adId }) => {
+        const id: number = adId;
+        return this.gunAdService.adminDelete(adId).pipe(
+          map((res) => {
+            if (res.success) {
+              this.snackBar.open('Oglas je uspešno obrisan.', 'Zatvori', {
+                duration: 5000,
+              });
+              this.router.navigate(['home'], { replaceUrl: true });
+            }
+            return GunAdActions.adminDeleteAdSuccess({ adId: id });
           }),
           catchError(({ error }) => {
             this.snackBar.open(error.message, 'Zatvori', {

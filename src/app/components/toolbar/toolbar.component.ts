@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
@@ -18,7 +20,9 @@ export class ToolbarComponent implements OnInit {
   categories: Category[] | null = null;
 
   input: string = '';
-  selectedCategory: string = '';
+  category = new FormControl();
+
+  queries: string[] = [];
 
   constructor(private store: Store<AppState>) {}
 
@@ -31,11 +35,29 @@ export class ToolbarComponent implements OnInit {
 
   handleSearch() {
     this.store.dispatch(
-      loadSearchedAds({ input: this.input, categoryId: this.selectedCategory })
+      loadSearchedAds({
+        input: this.input,
+        categoryId: this.category.value ? this.category.value : '',
+      })
     );
+    if (this.input.length > 0) {
+      this.queries = [];
+      this.queries.push(this.input);
+      this.input = '';
+    }
   }
 
-  setCategory(value: string) {
-    this.selectedCategory = value;
+  removeQuery(value: string): void {
+    const index = this.queries.indexOf(value);
+
+    if (index >= 0) {
+      this.queries.splice(index, 1);
+    }
+    this.store.dispatch(
+      loadSearchedAds({
+        input: this.input,
+        categoryId: this.category.value ? this.category.value : '',
+      })
+    );
   }
 }
