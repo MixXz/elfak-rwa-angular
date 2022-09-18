@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadReports());
     this.store.select(selectReportList).subscribe((reports) => {
-      this.reports = reports;    console.log(this.reports);
+      this.reports = reports;
     });
 
   }

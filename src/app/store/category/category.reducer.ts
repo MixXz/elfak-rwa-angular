@@ -12,7 +12,7 @@ export const initialState: CategoryState = {
 
 export const categoryReducer = createReducer(
   initialState,
-  on(CategoryActions.loadCategoriesSuccess, (action) => ({
+  on(CategoryActions.loadCategoriesSuccess, (state, action) => ({
     categories: action.categories,
   }))
 );

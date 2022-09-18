@@ -91,6 +91,7 @@
               <button
                 mat-menu-item
                 *ngIf="this.ad?.createdBy?.id !== this.user?.id"
+                (click)="handleReport()"
               >
                 <mat-icon color="accent">report</mat-icon>
                 <span>Prijavi oglas</span>

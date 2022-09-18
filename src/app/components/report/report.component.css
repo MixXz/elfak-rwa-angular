@@ -1,10 +1,9 @@
 .cont-card {
     display: flex;
-    width: 800px;
-    height: 350px;
+    width: 600px;
+    height: 300px;
     padding: 0px;
-  
-    margin: 10px;
+    cursor: pointer;
   }
   .header-div {
     display: flex;
@@ -38,5 +37,10 @@
     color: white;
     height: 40px;
     text-align: center;
+  }
+  .report-card  {
+    width: 400px;
+    background-color: #3f51b5;
+    color: white;
   }
   

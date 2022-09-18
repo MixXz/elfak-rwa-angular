@@ -10,6 +10,7 @@ import {
   loadSingleAd,
 } from 'src/app/store/gun-ad/gun-ad.actions';
 import { selectAdById } from 'src/app/store/gun-ad/gun-ad.selector';
+import { createReport } from 'src/app/store/report/report.actions';
 import { toggleSaveAd } from 'src/app/store/user/user.actions';
 import { environment } from 'src/environments/environment';
 
@@ -62,5 +63,12 @@ export class GunAdDetailsComponent implements OnInit {
 
   handleEdit() {
     this.router.navigate(['edit-ad/' + this.ad?.id]);
+  }
+
+  handleReport() {
+    if (this.ad !== undefined && this.ad !== null)
+      this.store.dispatch(
+        createReport({ gunAdId: Number(this.ad.id), text: 'neki ttt' })
+      );
   }
 }

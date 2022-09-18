@@ -13,5 +13,8 @@ export const reportReducer = createReducer(
   initialState,
   on(ReportActions.loadReportsSuccess, (state: ReportState, { reports }) => {
     return adapter.setAll(reports, state);
+  }),
+  on(ReportActions.createReportSuccess, (state: ReportState, { report }) => {
+    return adapter.addOne(report, state);
   })
 );

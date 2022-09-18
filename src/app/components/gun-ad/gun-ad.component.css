@@ -1,9 +1,9 @@
 .cont-card {
   display: flex;
-  width: 800px;
-  height: 350px;
+  width: 600px;
+  height: 300px;
   padding: 0px;
-
+  cursor: pointer;
   margin: 10px;
 }
 .header-div {

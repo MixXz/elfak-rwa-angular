@@ -1,9 +1,7 @@
 .toolbar-div {
   position: fixed;
-
   left: 2%;
   top: 100px;
-
   width: 250px;
   height: 200px;
 }

@@ -19,7 +19,7 @@ export class ReportComponent implements OnInit {
   }
 
   gotoDetails() {
-    // this.router.navigate(['gun-ad-details/' + this.ad?.id]);
+     this.router.navigate(['gun-ad-details/' + this.report?.gunAd?.id]);
   }
 
 }

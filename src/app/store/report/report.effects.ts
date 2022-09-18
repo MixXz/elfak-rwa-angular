@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import { Report } from 'src/app/models/report';
@@ -9,10 +11,12 @@ import * as ReportActions from './report.actions';
 export class ReportEffects {
   constructor(
     private action$: Actions,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
-  loadCategories$ = createEffect(() =>
+  loadReports$ = createEffect(() =>
     this.action$.pipe(
       ofType(ReportActions.loadReports),
       mergeMap(() =>
@@ -21,7 +25,29 @@ export class ReportEffects {
             return ReportActions.loadReportsSuccess({ reports });
           }),
           catchError(({ error }) => {
-            return of({ type: 'err' });
+            return of({ type: error });
+          })
+        )
+      )
+    )
+  );
+
+  createReport$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ReportActions.createReport),
+      mergeMap(({ gunAdId, text }) =>
+        this.reportService.create(gunAdId, text).pipe(
+          map((report: Report) => {
+            if (report) {
+              this.snackBar.open('Oglas je uspešno prijavljen', 'Uredu', {
+                duration: 5000,
+              });
+              this.router.navigate(['home']);
+            }
+            return ReportActions.createReportSuccess({ report });
+          }),
+          catchError(({ error }) => {
+            return of({ type: error });
           })
         )
       )
