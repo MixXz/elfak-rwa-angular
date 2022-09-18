@@ -1,0 +1,4 @@
+<div class="feed-div">
+  <app-report *ngFor="let report of reports" [report]="report"></app-report>
+  <h3 *ngIf="reports?.length === 0">Ništa za prikaz</h3>
+</div>

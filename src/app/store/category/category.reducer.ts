@@ -1,4 +1,3 @@
-import { Actions } from '@ngrx/effects';
 import { createReducer, on } from '@ngrx/store';
 import { Category } from 'src/app/models/category';
 import * as CategoryActions from './category.actions';
@@ -13,7 +12,7 @@ export const initialState: CategoryState = {
 
 export const categoryReducer = createReducer(
   initialState,
-  on(CategoryActions.loadCategoriesSuccess, (state, action) => ({
+  on(CategoryActions.loadCategoriesSuccess, (action) => ({
     categories: action.categories,
   }))
 );

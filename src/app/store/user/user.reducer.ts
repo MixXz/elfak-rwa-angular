@@ -26,9 +26,9 @@ export const userReducer = createReducer(
     access_token: null,
     loading: false,
   })),
-  on(UserActions.loginSuccess, (state, action) => ({
-    user: action.data.user,
-    access_token: action.data.access_token,
+  on(UserActions.loginSuccess, (state, {data}) => ({
+    user: data.user,
+    access_token: data.access_token,
     loading: false,
   })),
   on(UserActions.loginFailure, () => ({

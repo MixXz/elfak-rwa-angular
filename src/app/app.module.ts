@@ -47,6 +47,11 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { EditAdComponent } from './components/edit-ad/edit-ad.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { reportReducer } from './store/report/report.reducer';
+import { ReportEffects } from './store/report/report.effects';
+import { ReportComponent } from './components/report/report.component';
+import { ReportFeedComponent } from './components/report-feed/report-feed.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     SavedAdsComponent,
     ToolbarComponent,
     EditAdComponent,
+    AdminPanelComponent,
+    ReportComponent,
+    ReportFeedComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,8 +84,9 @@ import {MatBadgeModule} from '@angular/material/badge';
       user: userReducer,
       category: categoryReducer,
       gunAd: gunAdReducer,
+      report: reportReducer
     }),
-    EffectsModule.forRoot([UserEffects, CategoryEffects, GunAdEffects]),
+    EffectsModule.forRoot([UserEffects, CategoryEffects, GunAdEffects, ReportEffects]),
 
     MatCardModule,
     MatFormFieldModule,

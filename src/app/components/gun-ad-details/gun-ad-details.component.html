@@ -73,7 +73,7 @@
           <div class="right-corner-div">
             <div style="display: flex">
               <button mat-raised-button color="primary">
-                {{ ad?.price == 0 ? 'Po dogovoru' : ad?.price + '€' }}
+                {{ ad?.price == 0 ? "Po dogovoru" : ad?.price + "€" }}
               </button>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -88,13 +88,19 @@
                 <mat-icon>edit_note</mat-icon>
                 <span>Izmeni oglas</span>
               </button>
-              <button mat-menu-item>
+              <button
+                mat-menu-item
+                *ngIf="this.ad?.createdBy?.id !== this.user?.id"
+              >
                 <mat-icon color="accent">report</mat-icon>
                 <span>Prijavi oglas</span>
               </button>
               <button
                 mat-menu-item
-                *ngIf="this.ad?.createdBy?.id === this.user?.id || this.user?.role === 'admin'"
+                *ngIf="
+                  this.ad?.createdBy?.id === this.user?.id ||
+                  this.user?.role === 'admin'
+                "
                 (click)="handleDelete()"
               >
                 <mat-icon color="warn">delete</mat-icon>

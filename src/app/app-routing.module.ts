@@ -10,6 +10,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './enums/role';
 import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
 import { EditAdComponent } from './components/edit-ad/edit-ad.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -44,6 +45,12 @@ const routes: Routes = [
     component: SavedAdsComponent,
     canActivate: [AuthGuard],
     data: { role: Roles.User },
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
+    canActivate: [AuthGuard],
+    data: { role: Roles.Admin },
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: HomeComponent },

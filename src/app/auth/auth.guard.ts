@@ -6,9 +6,12 @@ import {
   UrlTree,
 } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AppState } from '../app.state';
 import { Roles } from '../enums/role';
 import { User } from '../models/user';
+import { selectUser } from '../store/user/user.selector';
 import { getToken, getUser } from './user-context';
 
 @Injectable({
@@ -16,8 +19,20 @@ import { getToken, getUser } from './user-context';
 })
 export class AuthGuard implements CanActivate {
   private jwtHelper: JwtHelperService;
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+  ) {
     this.jwtHelper = new JwtHelperService();
+  }
+
+  getFromUserStore(): User | null {
+    let user: User | null = null;
+
+    this.store.subscribe((state) => {
+      user = state.user.user;
+    });
+    return user;
   }
 
   canActivate(
@@ -28,7 +43,8 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const token: string | null = getToken();
-    const user: User | null = getUser();
+    const user: User | null = this.getFromUserStore();
+
     const authorizedRole = route.data['role'];
 
     if (token) {
