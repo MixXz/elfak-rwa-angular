@@ -10,7 +10,7 @@ import { UserEffects } from './store/user/user.effects';
 import { CategoryEffects } from './store/category/category.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { categoryReducer } from './store/category/category.reducer';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -36,22 +36,24 @@ import { GunAdEffects } from './store/gun-ad/gun-ad.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { InterceptorService } from './auth/interceptor';
 import { GunAdDetailsComponent } from './components/gun-ad-details/gun-ad-details.component';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
 import { MyAdsComponent } from './components/my-ads/my-ads.component';
 import { SavedAdsComponent } from './components/saved-ads/saved-ads.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { EditAdComponent } from './components/edit-ad/edit-ad.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { reportReducer } from './store/report/report.reducer';
 import { ReportEffects } from './store/report/report.effects';
 import { ReportComponent } from './components/report/report.component';
 import { ReportFeedComponent } from './components/report-feed/report-feed.component';
+import { DialogModule } from '@angular/cdk/dialog';
+import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { ReportFeedComponent } from './components/report-feed/report-feed.compon
     AdminPanelComponent,
     ReportComponent,
     ReportFeedComponent,
+    ReportDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,9 +87,14 @@ import { ReportFeedComponent } from './components/report-feed/report-feed.compon
       user: userReducer,
       category: categoryReducer,
       gunAd: gunAdReducer,
-      report: reportReducer
+      report: reportReducer,
     }),
-    EffectsModule.forRoot([UserEffects, CategoryEffects, GunAdEffects, ReportEffects]),
+    EffectsModule.forRoot([
+      UserEffects,
+      CategoryEffects,
+      GunAdEffects,
+      ReportEffects,
+    ]),
 
     MatCardModule,
     MatFormFieldModule,
@@ -104,9 +112,12 @@ import { ReportFeedComponent } from './components/report-feed/report-feed.compon
     SlickCarouselModule,
     MatRippleModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    DialogModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

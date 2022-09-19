@@ -1,0 +1,16 @@
+<mat-card class="dialog-cont">
+  <mat-card-title>Prijava oglasa</mat-card-title>
+  <mat-card-subtitle>Vaša prijava biće obrađena od strane administracije </mat-card-subtitle>
+  <form class="form">
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Tekst prijave</mat-label>
+      <textarea
+        type="text"
+        matInput
+        placeholder="Oglas nije prikladnog sadržaja..."
+        [formControl]="textControl"
+      ></textarea>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color="accent" (click)="handleClose()">Prijavi oglas</button>
+</mat-card>

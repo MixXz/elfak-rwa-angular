@@ -16,5 +16,8 @@ export const reportReducer = createReducer(
   }),
   on(ReportActions.createReportSuccess, (state: ReportState, { report }) => {
     return adapter.addOne(report, state);
+  }),
+  on(ReportActions.checkReportSuccess, (state: ReportState, { id }) => {
+    return adapter.removeOne(id, state);
   })
 );

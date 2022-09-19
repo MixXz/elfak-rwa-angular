@@ -1,3 +1,4 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -13,6 +14,7 @@ import { selectAdById } from 'src/app/store/gun-ad/gun-ad.selector';
 import { createReport } from 'src/app/store/report/report.actions';
 import { toggleSaveAd } from 'src/app/store/user/user.actions';
 import { environment } from 'src/environments/environment';
+import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
 
 @Component({
   selector: 'app-gun-ad-details',
@@ -29,10 +31,12 @@ export class GunAdDetailsComponent implements OnInit {
 
   imgPath: string = environment.api + '/';
 
+  reportText?: string;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: Dialog
   ) {}
 
   ngOnInit(): void {
@@ -66,9 +70,18 @@ export class GunAdDetailsComponent implements OnInit {
   }
 
   handleReport() {
-    if (this.ad !== undefined && this.ad !== null)
-      this.store.dispatch(
-        createReport({ gunAdId: Number(this.ad.id), text: 'neki ttt' })
-      );
+    const dialogRef = this.dialog.open<string>(ReportDialogComponent, {
+      width: 'auto',
+      data: { text: this.reportText },
+    });
+
+    dialogRef.closed.subscribe((text) => {
+      if (text) {
+        if (this.ad !== undefined && this.ad !== null)
+          this.store.dispatch(
+            createReport({ gunAdId: Number(this.ad.id), text: text })
+          );
+      }
+    });
   }
 }

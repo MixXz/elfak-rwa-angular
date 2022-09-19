@@ -16,3 +16,9 @@ export const createReportSuccess = createAction(
   'createReportSuccess',
   props<{ report: Report }>()
 );
+
+export const checkReport = createAction('checkReport', props<{ id: number }>());
+export const checkReportSuccess = createAction(
+  'checkReportSuccess',
+  props<{ id: number }>()
+);

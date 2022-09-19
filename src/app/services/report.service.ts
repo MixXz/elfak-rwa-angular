@@ -16,6 +16,10 @@ export class ReportService {
     });
   }
 
+  delete(id: number) {
+    return this.httpClient.delete<any>(`${environment.api}/report/${id}`);
+  }
+
   getAll() {
     return this.httpClient.get<Report[]>(`${environment.api}/report`);
   }

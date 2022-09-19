@@ -1,3 +1,4 @@
+import { identifierName } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -51,6 +52,24 @@ export class ReportEffects {
           })
         )
       )
+    )
+  );
+
+  checkReport$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ReportActions.checkReport),
+
+      mergeMap(({ id }) => {
+        const reportId: number = id;
+        return this.reportService.delete(id).pipe(
+          map(() => {
+            return ReportActions.checkReportSuccess({ id: reportId });
+          }),
+          catchError(({ error }) => {
+            return of({ type: error });
+          })
+        );
+      })
     )
   );
 }
