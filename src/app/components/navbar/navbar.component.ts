@@ -6,6 +6,7 @@ import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
 import { loadCategories } from 'src/app/store/category/category.actions';
 import { logoutUser } from 'src/app/store/user/user.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,8 @@ import { logoutUser } from 'src/app/store/user/user.actions';
 export class NavbarComponent implements OnInit {
   user: User | null = null;
   categories: Category[] = [];
+
+  baseUrl: string = environment.api + '/';
 
   constructor(private store: Store<AppState>, public router: Router) {}
   ngOnInit(): void {

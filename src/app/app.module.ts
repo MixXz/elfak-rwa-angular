@@ -54,6 +54,8 @@ import { ReportComponent } from './components/report/report.component';
 import { ReportFeedComponent } from './components/report-feed/report-feed.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     ReportComponent,
     ReportFeedComponent,
     ReportDialogComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     MatChipsModule,
     MatBadgeModule,
     DialogModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

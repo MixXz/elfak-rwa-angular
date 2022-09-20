@@ -4,11 +4,17 @@
   justify-content: center;
   align-items: center;
 
-  max-width: 60%;
+  max-width: 800px;
   margin: 20px auto 0px;
 }
 .user-pic {
+  position: relative;
   object-fit: cover;
   width: 200px;
   height: 200px;
+}
+.edit-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

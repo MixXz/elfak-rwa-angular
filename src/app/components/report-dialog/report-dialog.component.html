@@ -1,8 +1,10 @@
 <mat-card class="dialog-cont">
   <mat-card-title>Prijava oglasa</mat-card-title>
-  <mat-card-subtitle>Vaša prijava biće obrađena od strane administracije </mat-card-subtitle>
+  <mat-card-subtitle
+    >Vaša prijava biće obrađena od strane administracije
+  </mat-card-subtitle>
   <form class="form">
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" style="width: 100%">
       <mat-label>Tekst prijave</mat-label>
       <textarea
         type="text"
@@ -12,5 +14,12 @@
       ></textarea>
     </mat-form-field>
   </form>
-  <button mat-raised-button color="accent" (click)="handleClose()">Prijavi oglas</button>
+  <div>
+    <button mat-stroked-button color="accent" (click)="handleClose()">
+      Otkaži
+    </button>
+    <button mat-raised-button color="accent" (click)="handleReport()" style="margin-left: 20px;">
+      Prijavi oglas
+    </button>
+  </div>
 </mat-card>

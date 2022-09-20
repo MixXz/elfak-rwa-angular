@@ -1,0 +1,15 @@
+.edit-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.user-pic {
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+.form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}

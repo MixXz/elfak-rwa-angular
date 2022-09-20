@@ -18,6 +18,10 @@ export class ReportDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   handleClose() {
+    this.dialogRef.close();
+  }
+  
+  handleReport() {
     if (this.textControl.value !== '' && this.textControl.value) {
       this.data = this.textControl.value;
       this.dialogRef.close(this.data);
