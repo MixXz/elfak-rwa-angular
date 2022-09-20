@@ -22,6 +22,13 @@ export class UserService {
     });
   }
 
+  editProfile(userData: FormData) {
+    return this.httpClient.put<User>(
+      `${environment.api}/users/edit-profile`,
+      userData
+    );
+  }
+
   toggleSave(adId: number) {
     return this.httpClient.get<any>(
       `${environment.api}/users/toggleSave/${adId}`

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mergeMap, map, catchError, of, tap } from 'rxjs';
 import { setToken, setUser } from 'src/app/auth/user-context';
-import { LoginUser } from 'src/app/models/user';
+import { LoginUser, User } from 'src/app/models/user';
 import { UserService } from '../../services/user.service';
 
 import * as UserActions from './user.actions';
@@ -80,6 +80,29 @@ export class UserEffects {
               { duration: 5000 }
             );
             return of(UserActions.registerFailure());
+          })
+        )
+      )
+    )
+  );
+
+  editProfile$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(UserActions.editProfile),
+      mergeMap(({ userData }) =>
+        this.userService.editProfile(userData).pipe(
+          map((user: User) => {
+            this.snackBar.open('Vaš profil je uspešno izmenjen', 'Uredu', {
+              duration: 3000,
+            });
+            setUser(user);
+            return UserActions.editProfileSuccess({ user: user });
+          }),
+          catchError(({ error }) => {
+            this.snackBar.open('Greška na strani servera', 'Zatvori', {
+              duration: 3000,
+            });
+            return of({ type: error });
           })
         )
       )

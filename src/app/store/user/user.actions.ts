@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LoginUser, RegisterUser } from 'src/app/models/user';
+import { LoginUser, RegisterUser, User } from 'src/app/models/user';
 
 export const loginUser = createAction(
   'loginUser',
@@ -25,6 +25,15 @@ export const registerUser = createAction(
 
 export const registerSuccess = createAction('registerSuccess');
 export const registerFailure = createAction('registerFailure');
+
+export const editProfile = createAction(
+  'editProfile',
+  props<{ userData: FormData }>()
+);
+export const editProfileSuccess = createAction(
+  'editProfileSuccess',
+  props<{ user: User }>()
+);
 
 export const toggleSaveAd = createAction(
   'toggleSaveAd',

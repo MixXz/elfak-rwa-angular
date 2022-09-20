@@ -26,7 +26,7 @@ export const userReducer = createReducer(
     access_token: null,
     loading: false,
   })),
-  on(UserActions.loginSuccess, (state, {data}) => ({
+  on(UserActions.loginSuccess, (state, { data }) => ({
     user: data.user,
     access_token: data.access_token,
     loading: false,
@@ -47,5 +47,9 @@ export const userReducer = createReducer(
   on(UserActions.registerFailure, (state) => ({
     ...state,
     loading: false,
+  })),
+  on(UserActions.editProfileSuccess, (state, { user }) => ({
+    ...state,
+    user: user,
   }))
 );

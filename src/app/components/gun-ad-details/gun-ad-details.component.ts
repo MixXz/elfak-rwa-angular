@@ -29,7 +29,7 @@ export class GunAdDetailsComponent implements OnInit {
   slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
   slideConfigSmall = { slidesToShow: 5, slidesToScroll: 5 };
 
-  imgPath: string = environment.api + '/';
+  baseUrl: string = environment.api + '/';
 
   reportText?: string;
   constructor(

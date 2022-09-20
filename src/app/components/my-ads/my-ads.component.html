@@ -3,9 +3,9 @@
     <img
       mat-card-avatar
       [src]="
-        !this.user?.imagePath
-          ? '../../../assets/common/defaultUser.png'
-          : this.user?.imagePath
+        this.user && this.user.imagePath
+          ? this.baseUrl + this.user.imagePath
+          : '../../../assets/common/defaultUser.png'
       "
       alt="user-pic"
       class="user-pic"
@@ -14,15 +14,17 @@
       <mat-icon>edit</mat-icon>
     </button>
   </div>
-  <mat-card-title>{{
-    this.user?.firstName + " " + this.user?.lastName
-  }}</mat-card-title>
-  <mat-card-subtitle>Član od: <strong>23.09.2022</strong></mat-card-subtitle>
-  <mat-card-subtitle
-    >Adresa: <strong>{{ this.user?.address }}</strong></mat-card-subtitle
-  >
-  <mat-card-subtitle
-    >Kontakt: <strong>{{ this.user?.phone }}</strong></mat-card-subtitle
-  >
+  <div class="info-div">
+    <mat-card-title>{{
+      this.user?.firstName + " " + this.user?.lastName
+    }}</mat-card-title>
+    <mat-card-subtitle><strong>Član od: </strong>23.09.2022</mat-card-subtitle>
+    <mat-card-subtitle style="margin-bottom: 5px">
+      <strong>Adresa: </strong>{{ this.user?.address }}</mat-card-subtitle
+    >
+    <mat-card-subtitle>
+      <strong>Kontakt: </strong>{{ this.user?.phone }}</mat-card-subtitle
+    >
+  </div>
 </mat-card>
 <app-feed></app-feed>

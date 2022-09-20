@@ -16,7 +16,7 @@
               [src]="
                 this.ad?.gallery === null
                   ? '../../../assets/common/noImage.png'
-                  : imgPath + preview
+                  : baseUrl + preview
               "
               alt="nst"
               class="slide-img"
@@ -37,7 +37,7 @@
               [src]="
                 this.ad?.gallery === null
                   ? '../../../assets/common/noImage.png'
-                  : imgPath + preview
+                  : baseUrl + preview
               "
               alt="nst"
               class="slide-img"
@@ -124,7 +124,7 @@
           [src]="
             !this.ad?.createdBy?.imagePath
               ? '../../../assets/common/defaultUser.png'
-              : this.ad?.createdBy?.imagePath
+              : baseUrl + this.ad?.createdBy?.imagePath
           "
           alt="user"
           class="user-img"
@@ -134,7 +134,7 @@
         }}</mat-card-title>
         <!-- TODO -->
         <mat-card-subtitle
-          >Član od: <strong> 24.05.2022</strong></mat-card-subtitle
+          ><strong>Član od: </strong> 24.05.2022</mat-card-subtitle
         >
       </div>
       <h4 style="margin-bottom: 0px"><strong>Adresa</strong></h4>

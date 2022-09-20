@@ -60,6 +60,7 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
+  margin-bottom: 10px;
 }
 .img-img {
   object-fit: cover;

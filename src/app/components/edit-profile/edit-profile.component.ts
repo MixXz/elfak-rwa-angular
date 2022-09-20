@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -21,6 +22,7 @@ export class EditProfileComponent implements OnInit {
   imagePreview: string | null = null;
   selectedImage: File | null = null;
 
+  baseUrl: string = environment.api + '/';
   constructor(
     private dialogRef: MatDialogRef<EditProfileComponent>,
     private store: Store<AppState>
@@ -44,6 +46,7 @@ export class EditProfileComponent implements OnInit {
       lastName: this.lastName.value,
       address: this.address.value,
       phone: this.phone.value,
+      image: this.selectedImage
     };
     this.dialogRef.close(editedUser);
   }
@@ -65,7 +68,7 @@ export class EditProfileComponent implements OnInit {
     this.selectedImage = null;
     this.imagePreview = null;
   }
-  
+
   handleClose() {
     this.dialogRef.close();
   }
