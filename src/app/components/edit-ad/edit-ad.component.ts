@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
 import { GunAd } from 'src/app/models/gun-ad';
+import { selectCategoryList } from 'src/app/store/category/category.selector';
 import { loadSingleAd, updateAd } from 'src/app/store/gun-ad/gun-ad.actions';
 import { selectAdById } from 'src/app/store/gun-ad/gun-ad.selector';
 import { environment } from 'src/environments/environment';
@@ -37,9 +38,9 @@ export class EditAdComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => (this.adId = params['id']));
     this.store.dispatch(loadSingleAd({ adId: this.adId }));
-    this.store.subscribe((state) => {
-      this.categories = state.category.categories;
-    });
+    this.store
+      .select(selectCategoryList)
+      .subscribe((categories) => (this.categories = categories));
     this.store.select(selectAdById(this.adId)).subscribe((item) => {
       this.ad = item;
 

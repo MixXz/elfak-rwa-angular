@@ -1,51 +1,61 @@
+.report-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
 .cont-card {
-    display: flex;
-    width: 600px;
-    height: 300px;
-    padding: 0px;
-    cursor: pointer;
-  }
-  .header-div {
-    display: flex;
-    justify-content: space-between;
-  }
-  .img-div {
-    width: 60%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-  }
-  .img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-  .add-card {
-    width: 100%;
-  }
-  .desc-div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: 80%;
-  }
-  .price-div {
-    display: flex;
-    background-color: #3f51b5;
-    color: white;
-    height: 40px;
-    text-align: center;
-  }
-  .report-card  {
-    width: 400px;
-    background-color: #3f51b5;
-    color: white;
-  }
-  .elements-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+  display: flex;
+  width: 600px;
+  height: 300px;
+  padding: 0px;
+  cursor: pointer;
+}
+.header-div {
+  display: flex;
+  justify-content: space-between;
+}
+.img-div {
+  width: 60%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.add-card {
+  width: 100%;
+}
+.desc-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 80%;
+}
+.price-div {
+  display: flex;
+  background-color: #3f51b5;
+  color: white;
+  height: 40px;
+  text-align: center;
+}
+.report-card {
+  width: 200px;
+  background-color: #3f51b5;
+  color: white;
+}
+.elements-div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.rep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

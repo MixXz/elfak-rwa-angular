@@ -5,6 +5,7 @@ import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
 import { loadCategories } from 'src/app/store/category/category.actions';
+import { selectCategoryList } from 'src/app/store/category/category.selector';
 import { logoutUser } from 'src/app/store/user/user.actions';
 import { environment } from 'src/environments/environment';
 
@@ -22,10 +23,10 @@ export class NavbarComponent implements OnInit {
   constructor(private store: Store<AppState>, public router: Router) {}
   ngOnInit(): void {
     this.store.dispatch(loadCategories());
-    this.store.subscribe((state) => {
-      this.user = state.user.user;
-      this.categories = state.category.categories;
-    });
+    this.store.subscribe((state) => (this.user = state.user.user));
+    this.store
+      .select(selectCategoryList)
+      .subscribe((categories) => (this.categories = categories));
   }
 
   handleLog() {

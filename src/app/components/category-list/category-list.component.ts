@@ -4,6 +4,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
+import {
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from 'src/app/store/category/category.actions';
+import { selectCategoryList } from 'src/app/store/category/category.selector';
 
 @Component({
   selector: 'app-category-list',
@@ -14,7 +20,7 @@ export class CategoryListComponent implements OnInit {
   categories: Category[] = [];
 
   name = new FormControl('', [Validators.required]);
-  id?: number;
+  id?: string;
   edit: boolean = false;
 
   constructor(
@@ -23,13 +29,13 @@ export class CategoryListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.subscribe((state) => {
-      this.categories = state.category.categories;
-    });
+    this.store
+      .select(selectCategoryList)
+      .subscribe((categories) => (this.categories = categories));
   }
 
   handleEdit(id: string) {
-    this.id = Number(id);
+    this.id = id;
     const category = this.categories.find((c) => c.id == id);
     if (category) {
       this.name.setValue(category.name);
@@ -38,19 +44,29 @@ export class CategoryListComponent implements OnInit {
   }
 
   handleSubmit() {
-    if (this.edit) {
-      console.log(this.id);
-      console.log(this.name.value);
+    if (this.edit && this.id) {
+      if (this.name.value && this.name.value.length > 0)
+        this.store.dispatch(
+          updateCategory({ id: this.id, name: this.name.value })
+        );
+        
       this.name.reset();
       this.edit = false;
-    } else if(this.name && this.name.value?.length) {
-      console.log(this.name.value);
+    } else if (this.name && this.name.value?.length) {
+      this.store.dispatch(createCategory({ name: this.name.value }));
       this.name.reset();
     }
   }
 
   handleDelete(id: string) {
-    console.log("deleteing" + id);
+    if (id && id.length) {
+      this.store.dispatch(deleteCategory({ id: id }));
+    }
+  }
+
+  handleCancel() {
+    this.edit = false;
+    this.name.reset();
   }
 
   handleClose() {

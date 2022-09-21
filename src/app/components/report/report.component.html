@@ -1,15 +1,9 @@
-<div style="margin: 10px" >
-  <mat-card class="report-card mat-elevation-z4">
-    <div class="elements-div">
-      <label><strong>Tekst prijave: </strong> {{ this.report?.text }}</label>
-      <div class="buttons-div">
-        <button mat-mini-fab color="accent" (click)="handleChecked()">
-          <mat-icon>check</mat-icon>
-        </button>
-      </div>
-    </div>
-  </mat-card>
-  <mat-card class="cont-card mat-elevation-z4" matRipple (click)="gotoDetails()">
+<div class="report-container">
+  <mat-card
+    class="cont-card mat-elevation-z4"
+    matRipple
+    (click)="gotoDetails()"
+  >
     <div class="img-div">
       <img
         [src]="
@@ -53,5 +47,16 @@
         </p>
       </mat-card-content>
     </mat-card>
+  </mat-card>
+  <mat-card class="report-card mat-elevation-z4">
+    <div class="elements-div">
+      <div class="rep-header">
+        <h3 style="margin-bottom: 5px">Tekst prijave:</h3>
+        <button mat-mini-fab color="accent" (click)="handleChecked()">
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+      <p>{{ this.report?.text }}</p>
+    </div>
   </mat-card>
 </div>

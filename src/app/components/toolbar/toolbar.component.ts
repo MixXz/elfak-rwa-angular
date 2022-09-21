@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
+import { selectCategoryList } from 'src/app/store/category/category.selector';
 import { loadSearchedAds } from 'src/app/store/gun-ad/gun-ad.actions';
 
 @Component({
@@ -29,8 +30,10 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.store.subscribe((state) => {
       this.user = state.user.user;
-      this.categories = state.category.categories;
     });
+    this.store
+      .select(selectCategoryList)
+      .subscribe((categories) => (this.categories = categories));
   }
 
   handleSearch() {

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
+import { selectCategoryList } from 'src/app/store/category/category.selector';
 import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
 import { environment } from 'src/environments/environment';
 
@@ -45,9 +46,11 @@ export class CreateAdComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.subscribe((state) => {
-      this.categories = state.category.categories;
       this.user = state.user.user;
     });
+    this.store
+      .select(selectCategoryList)
+      .subscribe((categories) => (this.categories = categories));
   }
 
   handleCreate() {
