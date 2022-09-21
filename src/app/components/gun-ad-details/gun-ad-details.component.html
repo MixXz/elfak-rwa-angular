@@ -14,9 +14,9 @@
           >
             <img
               [src]="
-                this.ad?.gallery === null
-                  ? '../../../assets/common/noImage.png'
-                  : baseUrl + preview
+                this.ad && this.ad.gallery && preview
+                  ? baseUrl + preview
+                  : '../../../assets/common/noImage.jpg'
               "
               alt="nst"
               class="slide-img"

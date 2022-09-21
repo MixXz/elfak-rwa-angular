@@ -18,7 +18,8 @@ export class ReportComponent implements OnInit {
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   gotoDetails() {
     this.router.navigate(['gun-ad-details/' + this.report?.gunAd?.id]);

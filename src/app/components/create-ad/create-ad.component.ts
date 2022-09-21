@@ -6,6 +6,7 @@ import { AppState } from 'src/app/app.state';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
 import { createAd } from 'src/app/store/gun-ad/gun-ad.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-ad',
@@ -34,6 +35,8 @@ export class CreateAdComponent implements OnInit {
 
   slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
   slideConfigSmall = { slidesToShow: 5, slidesToScroll: 5 };
+
+  baseUrl: string = environment.api + '/';
 
   constructor(
     private _formBuilder: FormBuilder,

@@ -6,9 +6,6 @@
         <button mat-mini-fab color="accent" (click)="handleChecked()">
           <mat-icon>check</mat-icon>
         </button>
-        <!-- <button mat-mini-fab color="accent" style="margin-left: 10px;">
-          <mat-icon>close</mat-icon>
-        </button> -->
       </div>
     </div>
   </mat-card>
@@ -16,7 +13,7 @@
     <div class="img-div">
       <img
         [src]="
-          (this.report?.gunAd?.gallery)![0] !== ''
+          this.report?.gunAd && this.report?.gunAd?.gallery?.length
             ? imgPath + '/' + (this.report?.gunAd?.gallery)![0]
             : '../../../assets/common/noImage.png'
         "

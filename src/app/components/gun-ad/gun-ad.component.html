@@ -2,8 +2,8 @@
   <div class="img-div">
     <img
       [src]="
-        (this.ad?.gallery)![0] !== ''
-          ? imgPath + '/' + (this.ad?.gallery)![0]
+        this.ad && this.ad.gallery[0]
+          ? imgPath + '/' + this.ad.gallery[0]
           : '../../../assets/common/noImage.png'
       "
       alt="nesto"

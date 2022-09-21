@@ -3,7 +3,12 @@
     <div class="form-part-div">
       <mat-form-field appearance="outline">
         <mat-label>Kategorija</mat-label>
-        <mat-select [(value)]="selectedCategory" #categoryRef (selectionChange)="setCategory(categoryRef.value)" required>
+        <mat-select
+          [(value)]="selectedCategory"
+          #categoryRef
+          (selectionChange)="setCategory(categoryRef.value)"
+          required
+        >
           <mat-option *ngFor="let category of categories" [value]="category.id">
             {{ category.name }}
           </mat-option>
@@ -79,11 +84,26 @@
       cdkDropListOrientation="horizontal"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="drag-div" cdkDrag *ngFor="let preview of previews; index as i">
-        <button  mat-mini-fab value={{preview}} color="accent" class="remove-btn" (click)="removeImg(btnRemove.id)">
+      <div
+        class="drag-div"
+        cdkDrag
+        *ngFor="let preview of previews; index as i"
+      >
+        <button
+          mat-mini-fab
+          value="{{ preview }}"
+          color="accent"
+          class="remove-btn"
+          (click)="removeImg(btnRemove.id)"
+        >
           <mat-icon>close</mat-icon>
         </button>
-        <img #btnRemove [id]="i" [src]="this.selectedFiles ? preview : imgPath + preview" class="img-img"/>
+        <img
+          #btnRemove
+          [id]="i"
+          [src]="this.selectedFiles ? preview : imgPath + preview"
+          class="img-img"
+        />
       </div>
     </div>
     <button
@@ -104,5 +124,12 @@
       />
     </button>
   </div>
-  <button mat-raised-button color="primary" style="margin-top: 20px;" (click)="handleSaveChanges()">Sačuvaj izmene</button>
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-top: 20px"
+    (click)="handleSaveChanges()"
+  >
+    Sačuvaj izmene
+  </button>
 </mat-card>

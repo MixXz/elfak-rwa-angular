@@ -30,6 +30,7 @@ export class EditAdComponent implements OnInit {
   previews: string[] = [];
   imgPath: string = environment.api + '/';
   selectedFiles?: FileList;
+  selectedFileNames: string[] = [];
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
@@ -49,7 +50,9 @@ export class EditAdComponent implements OnInit {
         this.desc = this.ad.description;
         this.caliber = this.ad.caliber;
         this.selectedCategory = this.ad.category.id;
-        this.previews = this.ad.gallery;
+        if (this.previews.length === 0) {
+          this.ad.gallery.forEach((img) => this.previews.push(img));
+        }
       }
     });
   }
@@ -63,10 +66,13 @@ export class EditAdComponent implements OnInit {
       });
     }
 
-    if (this.selectedFiles) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        formData.append('images', this.selectedFiles[i]);
-      }
+    if (this.selectedFiles && this.selectedFileNames) {
+      this.selectedFileNames.forEach((img) => {
+        for (let i = 0; i < this.selectedFiles!.length; i++) {
+          if (img == this.selectedFiles![i].name)
+            formData.append('images', this.selectedFiles![i]);
+        }
+      });
     }
 
     formData.append('id', String(this.ad?.id));
@@ -92,18 +98,26 @@ export class EditAdComponent implements OnInit {
           this.previews.push(e.target.result);
         };
         reader.readAsDataURL(this.selectedFiles[i]);
+        this.selectedFileNames.push(this.selectedFiles[i].name);
       }
     }
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.previews, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.selectedFileNames,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   removeImg(value: string) {
     const index: number = Number(value);
     if (index !== -1) {
       this.previews.splice(index, 1);
+      console.log(this.previews.length);
+      this.selectedFileNames.splice(index, 1);
     }
   }
 
