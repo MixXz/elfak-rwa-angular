@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
@@ -46,7 +46,7 @@ export class EditProfileComponent implements OnInit {
       lastName: this.lastName.value,
       address: this.address.value,
       phone: this.phone.value,
-      image: this.selectedImage
+      image: this.selectedImage,
     };
     this.dialogRef.close(editedUser);
   }

@@ -58,6 +58,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import {MatDialogModule} from '@angular/material/dialog';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import {MatListModule} from '@angular/material/list';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {MatListModule} from '@angular/material/list';
     ReportDialogComponent,
     EditProfileComponent,
     CategoryListComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

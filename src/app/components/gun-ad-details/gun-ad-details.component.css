@@ -10,12 +10,12 @@
 }
 .carousel {
   width: 400px;
-  height: auto;
+  height: 500px;
 }
 .carousel-small {
-  margin-top: 10px;
+  margin-top: 50px;
   width: 400px;
-  height: auto;
+  height: 100px;
 }
 .slide-div {
   width: 100%;

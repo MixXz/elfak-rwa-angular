@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
     this.jwtHelper = new JwtHelperService();
   }
 
-  getFromUserStore(): User | null {
+  getUserFromStore(): User | null {
     let user: User | null = null;
 
     this.store.subscribe((state) => {
@@ -43,7 +43,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const token: string | null = getToken();
-    const user: User | null = this.getFromUserStore();
+    const user: User | null = this.getUserFromStore();
 
     const authorizedRole = route.data['role'];
 

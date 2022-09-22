@@ -1,5 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
@@ -14,6 +15,7 @@ import { selectAdById } from 'src/app/store/gun-ad/gun-ad.selector';
 import { createReport } from 'src/app/store/report/report.actions';
 import { toggleSaveAd } from 'src/app/store/user/user.actions';
 import { environment } from 'src/environments/environment';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
 
 @Component({
@@ -36,7 +38,8 @@ export class GunAdDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>,
-    private dialog: Dialog
+    private dialog: Dialog,
+    private confDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +55,31 @@ export class GunAdDetailsComponent implements OnInit {
   }
 
   handleDelete() {
-    if (this.ad !== undefined && this.ad !== null) {
-      if (this.user?.id === this.ad?.createdBy?.id)
+    if (!this.ad) return;
+
+    let msg: string = 'Da li ste sigurni da želite da obrišete ovaj oglas?';
+    if (this.user?.id !== this.ad?.createdBy?.id) {
+      msg = `Da li ste sigurni da želite da obrišete oglas korisnika ${this.ad.createdBy?.firstName} ${this.ad.createdBy?.lastName}?`;
+    }
+    const confDialogRef = this.confDialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: {
+        message: msg,
+      },
+    });
+
+    confDialogRef.afterClosed().subscribe((res) => {
+      if (!res || !res.result || !this.ad) return;
+
+      if (this.user?.id === this.ad.createdBy?.id)
         this.store.dispatch(deleteAd({ adId: Number(this.ad.id) }));
       else if (this.user?.role === 'admin') {
         this.store.dispatch(adminDeleteAd({ adId: Number(this.ad.id) }));
       }
-    }
+    });
   }
+
   handleSave() {
     if (this.ad !== undefined && this.ad !== null)
       this.store.dispatch(toggleSaveAd({ adId: Number(this.ad.id) }));

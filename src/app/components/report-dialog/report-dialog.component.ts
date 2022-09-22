@@ -1,6 +1,6 @@
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-report-dialog',

@@ -15,16 +15,23 @@
       <div>
         <mat-card-title> {{ ad?.title }}</mat-card-title>
         <mat-card-subtitle style="margin-bottom: 5px">
+          Kategorija:
+          <strong>{{ ad?.category?.name }}</strong></mat-card-subtitle
+        >
+        <mat-card-subtitle style="margin-bottom: 5px">
           Marka: <strong>{{ ad?.brand }}</strong></mat-card-subtitle
         >
         <mat-card-subtitle style="margin-bottom: 5px">
           Kalibar: <strong>{{ ad?.caliber }}</strong></mat-card-subtitle
         >
       </div>
-      <div>
-        <button mat-raised-button color="primary">
-          {{ ad?.price == 0 ? "Po dogovoru" : ad?.price + "€" }}
-        </button>
+      <div class="price-div">
+        <div>
+          <button mat-raised-button color="primary">
+            {{ ad?.price == 0 ? "Po dogovoru" : ad?.price + "€" }}
+          </button>
+        </div>
+        <p>{{this.rsdPrice + " Din."}}</p>
       </div>
     </div>
     <mat-divider></mat-divider>

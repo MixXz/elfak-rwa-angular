@@ -11,10 +11,12 @@ import { environment } from 'src/environments/environment';
 export class GunAdComponent implements OnInit {
   @Input() ad: GunAd | null = null;
   imgPath: string = environment.api;
-
+  rsdPrice?: number;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    if(this.ad?.price)
+    this.rsdPrice = this.ad?.price * 117;
   }
 
   gotoDetails() {
