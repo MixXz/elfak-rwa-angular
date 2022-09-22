@@ -23,7 +23,7 @@ export class CategoryEffects {
             return CategoryActions.loadCategoriesSuccess({ categories });
           }),
           catchError(({ error }) => {
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -45,7 +45,7 @@ export class CategoryEffects {
             this.snackbar.open('Greška na strani servera', 'Zatvori', {
               duration: 3000,
             });
-            return of({ type: error });
+            return of({ type: error.message });
           })
         )
       )

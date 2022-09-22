@@ -10,19 +10,23 @@
 }
 .carousel {
   width: 400px;
-  height: 500px;
+  height: 600px;
 }
 .carousel-small {
-  margin-top: 50px;
+  margin-top: 10px;
+  width: 400px;
+  height: 120px;
+}
+.slide-div {
+  width: 400px;
+  height: 600px;
+}
+.slide-div-small {
   width: 400px;
   height: 100px;
 }
-.slide-div {
-  width: 100%;
-  height: 100%;
-}
 .slide-img {
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   height: 100%;
 }

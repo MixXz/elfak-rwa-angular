@@ -41,7 +41,10 @@ export const createAd = createAction(
   'createAd',
   props<{ formData: FormData }>()
 );
-export const createAdSuccess = createAction('createAdSuccess');
+export const createAdSuccess = createAction(
+  'createAdSuccess',
+  props<{ ad: GunAd }>()
+);
 
 export const updateAd = createAction(
   'updateAd',
@@ -58,7 +61,10 @@ export const deleteAdSuccess = createAction(
   props<{ adId: number }>()
 );
 
-export const adminDeleteAd = createAction('adminDeleteAd', props<{ adId: number }>());
+export const adminDeleteAd = createAction(
+  'adminDeleteAd',
+  props<{ adId: number }>()
+);
 export const adminDeleteAdSuccess = createAction(
   'adminDeleteAdSuccess',
   props<{ adId: number }>()

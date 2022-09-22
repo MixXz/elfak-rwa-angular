@@ -5,14 +5,12 @@ export const loginUser = createAction(
   'loginUser',
   props<{ email: string; password: string }>()
 );
-
-export const logoutUser = createAction('logoutUser');
-
 export const loginSuccess = createAction(
   'loginSuccess',
   props<{ data: LoginUser }>()
 );
 
+export const logoutUser = createAction('logoutUser');
 export const loginFailure = createAction(
   'loginFailure',
   props<{ error: string }>()

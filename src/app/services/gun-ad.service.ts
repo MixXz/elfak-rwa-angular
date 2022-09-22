@@ -32,7 +32,7 @@ export class GunAdService {
   }
 
   create(formData: FormData) {
-    return this.httpClient.post<GunAd[]>(`${environment.api}/gun-ad`, formData);
+    return this.httpClient.post<GunAd>(`${environment.api}/gun-ad`, formData);
   }
 
   update(formData: FormData) {

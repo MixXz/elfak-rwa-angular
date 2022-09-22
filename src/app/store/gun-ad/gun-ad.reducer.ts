@@ -40,6 +40,9 @@ export const gunAdReducer = createReducer(
   on(GunAdActions.deleteAdSuccess, (state: GunAdState, { adId }) => {
     return adapter.removeOne(adId, state);
   }),
+  on(GunAdActions.createAdSuccess, (state: GunAdState, { ad }) => {
+    return adapter.addOne(ad, state);
+  }),
   on(UserActions.toggleSaveSuccess, (state: GunAdState, { adId }) => {
     return adapter.updateOne(
       {
@@ -52,7 +55,7 @@ export const gunAdReducer = createReducer(
       state
     );
   }),
-  on(GunAdActions.updateAdSuccess, (state: GunAdState, {ad}) => {
+  on(GunAdActions.updateAdSuccess, (state: GunAdState, { ad }) => {
     return adapter.updateOne(
       {
         id: ad.id,

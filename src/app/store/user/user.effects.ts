@@ -62,10 +62,10 @@ export class UserEffects {
   registerUser$ = createEffect(() =>
     this.action$.pipe(
       ofType(UserActions.registerUser),
-      mergeMap((action) =>
-        this.userService.register(action.registerData).pipe(
+      mergeMap(({ registerData }) =>
+        this.userService.register(registerData).pipe(
           map(() => {
-            this.snackBar.open('Uspešno registrovanje.', 'OK');
+            this.snackBar.open('Uspešno registrovanje.', 'Uredu');
             this.router.navigate(['login'], { replaceUrl: true });
             return UserActions.registerSuccess();
           }),

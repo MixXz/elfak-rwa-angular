@@ -14,7 +14,7 @@
     <div class="header-div">
       <div>
         <mat-card-title> {{ ad?.title }}</mat-card-title>
-        <mat-card-subtitle style="margin-bottom: 5px">
+        <mat-card-subtitle style="margin-bottom: 5px" *ngIf="this.ad?.category">
           Kategorija:
           <strong>{{ ad?.category?.name }}</strong></mat-card-subtitle
         >
@@ -31,7 +31,7 @@
             {{ ad?.price == 0 ? "Po dogovoru" : ad?.price + "€" }}
           </button>
         </div>
-        <p>{{this.rsdPrice + " Din."}}</p>
+        <p>{{ this.rsdPrice + " Din." }}</p>
       </div>
     </div>
     <mat-divider></mat-divider>

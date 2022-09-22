@@ -25,8 +25,7 @@ export class GunAdEffects {
             return GunAdActions.loadAdsSuccess({ ads });
           }),
           catchError(({ error }) => {
-            console.log(error);
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -42,8 +41,7 @@ export class GunAdEffects {
             return GunAdActions.loadSingleAdSuccess({ ad });
           }),
           catchError(({ error }) => {
-            console.log(error);
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -59,8 +57,7 @@ export class GunAdEffects {
             return GunAdActions.loadMyAdsSuccess({ ads });
           }),
           catchError(({ error }) => {
-            console.log(error);
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -76,8 +73,7 @@ export class GunAdEffects {
             return GunAdActions.loadSavedAdsSuccess({ ads });
           }),
           catchError(({ error }) => {
-            console.log(error);
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -93,8 +89,7 @@ export class GunAdEffects {
             return GunAdActions.loadSearchedAdsSuccess({ ads });
           }),
           catchError(({ error }) => {
-            console.log(error);
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -104,23 +99,22 @@ export class GunAdEffects {
   createAd$ = createEffect(() =>
     this.action$.pipe(
       ofType(GunAdActions.createAd),
-      mergeMap((action) =>
-        this.gunAdService.create(action.formData).pipe(
-          map((res) => {
-            if (res) {
-              this.snackBar.open('Vaš oglas je uspešno kreiran!', 'Uredu', {
-                duration: 5000,
-              });
-            }
-            this.router.navigate(['home'], { replaceUrl: true });
-            return GunAdActions.createAdSuccess();
-          }),
-          catchError(({ error }) => {
-            console.log(error.message);
-            this.snackBar.open('Greška na strani servera', 'Zatvori', {
+      mergeMap(({ formData }) =>
+        this.gunAdService.create(formData).pipe(
+          map((gunAd) => {
+            this.snackBar.open('Vaš oglas je uspešno kreiran!', 'Uredu', {
               duration: 5000,
             });
-            return of({ type: 'err' });
+            this.router.navigate([`gun-ad-details/${gunAd.id}`], {
+              replaceUrl: true,
+            });
+            return GunAdActions.createAdSuccess({ ad: gunAd });
+          }),
+          catchError(({ error }) => {
+            this.snackBar.open('Greška na strani servera', 'Zatvori', {
+              duration: 3000,
+            });
+            return of({ type: error.message });
           })
         )
       )
@@ -130,26 +124,25 @@ export class GunAdEffects {
   updateAd$ = createEffect(() =>
     this.action$.pipe(
       ofType(GunAdActions.updateAd),
-      mergeMap((action) =>
-        this.gunAdService.update(action.formData).pipe(
+      mergeMap(({ formData }) =>
+        this.gunAdService.update(formData).pipe(
           map((ad) => {
             if (ad) {
               this.router.navigate([`gun-ad-details/${ad.id}`], {
                 replaceUrl: true,
               });
-              this.snackBar.open('Vaš oglas je uspešno izmenjen!', 'Uredu', {
-                duration: 5000,
+              this.snackBar.open('Vaš oglas je uspešno izmenjen!', 'Zatvori', {
+                duration: 3000,
               });
             }
 
             return GunAdActions.updateAdSuccess({ ad: ad });
           }),
           catchError(({ error }) => {
-            console.log(error.message);
             this.snackBar.open('Greška na strani servera', 'Zatvori', {
-              duration: 5000,
+              duration: 3000,
             });
-            return of({ type: 'err' });
+            return of({ type: error.message });
           })
         )
       )
@@ -159,13 +152,13 @@ export class GunAdEffects {
   deleteAd$ = createEffect(() =>
     this.action$.pipe(
       ofType(GunAdActions.deleteAd),
-      mergeMap((action) => {
-        const id: number = action.adId;
-        return this.gunAdService.delete(action.adId).pipe(
+      mergeMap(({ adId }) => {
+        const id: number = adId;
+        return this.gunAdService.delete(adId).pipe(
           map((res) => {
             if (res.success) {
               this.snackBar.open('Vaš oglas je uspešno obrisan.', 'Zatvori', {
-                duration: 5000,
+                duration: 3000,
               });
             }
             this.router.navigate(['home'], { replaceUrl: true });
@@ -173,7 +166,7 @@ export class GunAdEffects {
           }),
           catchError(({ error }) => {
             this.snackBar.open(error.message, 'Zatvori', {
-              duration: 5000,
+              duration: 3000,
             });
             return of({ type: error.message });
           })
@@ -191,7 +184,7 @@ export class GunAdEffects {
           map((res) => {
             if (res.success) {
               this.snackBar.open('Oglas je uspešno obrisan.', 'Zatvori', {
-                duration: 5000,
+                duration: 3000,
               });
               this.router.navigate(['home'], { replaceUrl: true });
             }
@@ -199,7 +192,7 @@ export class GunAdEffects {
           }),
           catchError(({ error }) => {
             this.snackBar.open(error.message, 'Zatvori', {
-              duration: 5000,
+              duration: 3000,
             });
             return of({ type: error.message });
           })

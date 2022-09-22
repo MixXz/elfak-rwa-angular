@@ -41,7 +41,7 @@ export class ReportEffects {
           map((report: Report) => {
             if (report) {
               this.snackBar.open('Oglas je uspešno prijavljen', 'Uredu', {
-                duration: 5000,
+                duration: 3000,
               });
               this.router.navigate(['home']);
             }
